@@ -153,6 +153,45 @@
   <ItemGroup>
     <Resource Include="bin\Debug\icons\submit.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\businessman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\health-report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\open-folder-with-document.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\database %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\information-signal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\medical-history.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\text-file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\user2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\hourglass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\info %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\icons\searching-data-in-database.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

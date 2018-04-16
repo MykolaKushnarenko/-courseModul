@@ -16,13 +16,21 @@ namespace TextGUIModule
         private SQLiteConnection conn;
         private SQLiteCommand command;
         private int countLine = 0;
+        private int idiDenticalFie = -1;
+        public int IdiDenticalFie
+        {
+            get
+            {
+                return idiDenticalFie;
+            }
+        }
         public DataBaseLite()
         {
-            if (existDataBase())
+            if (ExistDataBase())
             {
                 Connections();
                 command = new SQLiteCommand(conn);
-                isNull();
+                IsNull();
                 conn.Close();
             }
             else
@@ -30,12 +38,12 @@ namespace TextGUIModule
                 CreateNew();
                 Connections();
                 command = new SQLiteCommand(conn);
-                isNull();
+                IsNull();
                 conn.Close();
             }
 
         }
-        private string textWrite(string path)
+        private string TextWrite(string path)
         {
             string s = "";
             using (StreamReader rw = new StreamReader(path))
@@ -50,13 +58,231 @@ namespace TextGUIModule
 
             return s;
         }
-        public void AddingCode(string path, string lang, string tagOnSumb)
+
+        public void SearchIn(string tagAddingSub)
+        {
+            conn.Open();
+            List<string> gram = new List<string>();
+            Dictionary<int,string> nameFile = new Dictionary<int, string>();
+            Dictionary<int, double > resCode = new Dictionary<int, double>();
+            Analitics search = new Analitics();
+            bool isDel = false;
+            int idMainFileFor = -1;
+            string mainCode = "";
+            string childCode = "";
+            double maxRes = Double.MinValue; 
+            using (command = new SQLiteCommand("select File.id from File join Submit on File.id_Submit = Submit.id where Submit.Tag = @tag", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@Tag", tagAddingSub));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    if (r.Read())
+                    {
+                        idMainFileFor = r.GetInt32(0);
+                    }
+
+                }
+            }
+
+            using (command = new SQLiteCommand(
+                "select Gram.Gram from Gram join KGrmams on KGrmams.id_Gram = Gram.id join Code on KGrmams.id_Code = Code.id join File on File.id_Code = Code.id where File.id = @id", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@id", idMainFileFor));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    while (r.Read())
+                    {
+                        gram.Add(r.GetString(0));
+                    }
+
+                }
+            }
+
+
+            for (int i = 0; i < gram.Count/2; i++)
+            {
+                using (command = new SQLiteCommand(
+                    "select DISTINCT File.Name, File.id from File join Code on File.id_Code = Code.id join KGrmams on KGrmams.id_Code = Code.id join Gram on KGrmams.id_Gram = Gram.id where Gram.Gram = @gram and File.id != @idFile", conn))
+                {
+
+                    command.Parameters.Add(new SQLiteParameter("@gram", gram[i]));
+                    command.Parameters.Add(new SQLiteParameter("@idFile", idMainFileFor));
+                    using (IDataReader r = command.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            if (!nameFile.ContainsKey(r.GetInt32(1)) && isDel && nameFile.Count > 1)
+                            {
+                                nameFile.Remove(r.GetInt32(1));
+                            }
+                            else if (!isDel)
+                            {
+                                nameFile.Add(r.GetInt32(1),r.GetString(0));
+                            }
+                            
+                        }
+                           
+                    }
+                }
+                isDel = true;
+            }
+            using (command = new SQLiteCommand(
+                "select Code.NormalizeCode from Code join File on File.id_Code = Code.id where File.id = @id", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@id", idMainFileFor));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    if (r.Read())
+                        mainCode += r.GetString(0);
+                }
+            }
+            search.SetCodeMain(mainCode);
+            foreach (int key in nameFile.Keys)
+            {
+                using (command = new SQLiteCommand(
+                    "select Code.NormalizeCode from Code join File on File.id_Code = Code.id where File.id = @id", conn))
+                {
+                    command.Parameters.Add(new SQLiteParameter("@id", key));
+                    using (IDataReader r = command.ExecuteReader())
+                    {
+                        if (r.Read())
+                            childCode += r.GetString(0);
+                    }
+                }
+                search.SetCodeChild(childCode);
+                resCode.Add(key,search.AlgHeskel());
+            }
+
+            foreach (int Key in resCode.Keys)
+            {
+                if (resCode[Key] > maxRes)
+                {
+                    maxRes = resCode[Key];
+                    idiDenticalFie = Key;
+                }
+                    
+                    
+            }
+            conn.Close();
+        }
+
+        public List<string> DescSubm()
+        {
+            List<string> allDesc = new List<string>();
+            conn.Open();
+            string s = "";
+            using (command = new SQLiteCommand(
+                "SELECT File.Name, User.Name, Submit.Tag from User join Submit on Submit.id_User = User.id join File on File.id_Submit = Submit.id;", conn))
+            {
+                
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    while (r.Read())
+                    {
+                        s += r.GetString(0);
+                        s += "|";
+                        s += r.GetString(1);
+                        s += "|";
+                        s += r.GetString(2);
+                        allDesc.Add(s);
+                        s = "";
+                    }
+                        
+                }
+            }
+            conn.Close();
+            return allDesc;
+        }
+        public void SetCodeMain(string tag, Analitics alg)
+        {
+            string tokins = GetTokingCode(tag);
+            alg.SetCodeMain(tokins);
+
+        }
+        public void SetCodeChild(int id, Analitics alg)
+        {
+            string tagSubmit = "";
+            conn.Open();
+            using (command = new SQLiteCommand(
+                "select Submit.Tag from Submit join File on File.id_Submit = Submit.id where File.id = @id", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@id", idiDenticalFie));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    if (r.Read())
+                        tagSubmit += r.GetString(0);
+                }
+            }
+
+            conn.Close();
+            SetCodeChild(tagSubmit, alg);
+        }
+        public void SetCodeChild(string tag, Analitics alg)
+        {
+            string tokins = GetTokingCode(tag);
+            alg.SetCodeChild(tokins);
+
+        }
+        private string GetTokingCode(string tag)
+        {
+            string originCode = "";
+            conn.Open();
+            using (command = new SQLiteCommand(
+                "SELECT Code.NormalizeCode from Code join File on File.id_Code = Code.id join Submit on File.id_Submit = Submit.id where Submit.Tag like @Tag;", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@Tag", tag));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    if (r.Read())
+                        originCode += r.GetString(0);
+                }
+            }
+            conn.Close();
+            return originCode;
+        }
+
+        public string GetOrignCodeFromId(int id)
+        {
+            string tagSubmit = "";
+            conn.Open();
+            using (command = new SQLiteCommand(
+                "select Submit.Tag from Submit join File on File.id_Submit = Submit.id where File.id = @id", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@id", idiDenticalFie));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    if (r.Read())
+                        tagSubmit += r.GetString(0);
+                }
+            }
+            conn.Close();
+            return GetOrignCode(tagSubmit);
+        }
+        public string GetOrignCode(string tag)
+        {
+            string originCode = "";
+            conn.Open();
+            using (command = new SQLiteCommand(
+                "SELECT Code.OriginCode from Code join File on File.id_Code = Code.id join Submit on File.id_Submit = Submit.id where Submit.Tag like @Tag;", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@Tag", tag));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    if (r.Read())
+                        originCode += r.GetString(0);
+                }
+            }
+            conn.Close();
+            return originCode;
+        }
+        /*------------------Code---------------------*/
+        private void AddingCode(string path, string lang, string tagOnSumb, bool serachNow)
         {
             Analitics code = new Analitics();
             code.Accect(lang, path);
             string normaList = code.GetNormalizeCode();
 
-            string origncode = textWrite(path);
+            string origncode = TextWrite(path);
             List<string> gramsList = code.InserToDB();
             int countGram = gramsList.Count;
             string tag = DateTime.Now.ToString() + countGram.ToString();
@@ -145,10 +371,15 @@ namespace TextGUIModule
                 command.Parameters.Add(new SQLiteParameter("@id_Code", indexCode));
                 command.ExecuteNonQuery();
             }
+
+            if (serachNow)
+            {
+                SearchIn(tagOnSumb);
+            }
         }
-        
+        /*------------------Code---------------------*/
         /*------------------Submit---------------------*/
-        public void AddingSubmit(string name, string desc,string compolType, string path)
+        public void AddingSubmit(string name, string desc,string compolType, string path, bool serachNow)
         {
             conn.Open();
             //command.CommandText = String.Format("SELECT COUNT(*) from User where Name like '{0}')", name);
@@ -226,11 +457,11 @@ namespace TextGUIModule
             }
             catch (SQLiteException ex)
                 {
-                    prontError(ex.Message);
+                    ProntError(ex.Message);
                 }
 
             
-            AddingCode(path,language, tahSubmit);
+            AddingCode(path,language, tahSubmit, serachNow);
             conn.Close();
         }
 
@@ -277,7 +508,7 @@ namespace TextGUIModule
                 }
                 catch (SQLiteException ex)
                 {
-                    prontError(ex.Message);
+                    ProntError(ex.Message);
                 }
                 
             }
@@ -295,19 +526,19 @@ namespace TextGUIModule
             try
             {
                 conn.Open();
-                prontInfo("Connect!");
+                ProntInfo("Connect!");
                 return true;
                 
 
             }
             catch (Exception ex)
             {
-                prontError(ex.Message);
+                ProntError(ex.Message);
                 return false;
             }
         }
 
-        private void standCreateTables()
+        private void StandCreateTables()
         {
             string createLanguage = "CREATE TABLE Language ("
                                 + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
@@ -381,38 +612,38 @@ namespace TextGUIModule
                                    + "FOREIGN KEY(id_file) REFERENCES File(id)"
                                    + "); ";
 
-            initTable(createLanguage);
-            initTable(createCompoler);
-            initTable(createCode);
-            initTable(createGram);
-            initTable(createKGrams);
-            initTable(createUser);
-            initTable(createSubmite);
-            initTable(createHistory);
-            initTable(createFile);
-            initTable(createFormate);
-            defoultValue();
-            prontInfo("Creare new DataBase!");
+            InitTable(createLanguage);
+            InitTable(createCompoler);
+            InitTable(createCode);
+            InitTable(createGram);
+            InitTable(createKGrams);
+            InitTable(createUser);
+            InitTable(createSubmite);
+            InitTable(createHistory);
+            InitTable(createFile);
+            InitTable(createFormate);
+            DefoultValue();
+            ProntInfo("Creare new DataBase!");
         }
 
-        private void defoultValue()
+        private void DefoultValue()
         {
             string defLang = "insert into Language (denomination)"
                              + "values('C#'),"
                              + "('Java'), "
                              + "('C'), "
                              + "('C++'); ";
-            initTable(defLang);
+            InitTable(defLang);
             string defCompil = "insert into Compiler (FullName,CompilerType,id_language)"
                                + "values('Comol for C#. Version 2.1', 'dotnet',1),"
                                + "('Comol for Java. Version 2.1', 'javavm',2), "
                                + "('Comol for C. Version 2.0', 'custom',3), "
                                + "('Comol for C+. Version 2.1', 'native',4); ";
-            initTable(defCompil);
+            InitTable(defCompil);
 
         }
 
-        private void initTable(string commands)
+        private void InitTable(string commands)
         {
             command.CommandText = commands;
             try
@@ -421,14 +652,11 @@ namespace TextGUIModule
             }
             catch (SQLiteException ex)
             {
-                 prontError(ex.Message);
+                 ProntError(ex.Message);
             }
         }
-        private bool isNull()
+        private bool IsNull()
         {
-            //command = new SQLiteCommand(conn);
-            //command.CommandText = "SELECT sum(name) FROM sqlite_master WHERE type = 'table';";
-            //var allTableData = command.ExecuteReader();
             DataTable allTableData = conn.GetSchema("Tables");
             if (allTableData.Rows.Count > 0)
             {
@@ -436,21 +664,21 @@ namespace TextGUIModule
             }
             else
             {
-                standCreateTables();
+                StandCreateTables();
                 return true;
             }
         }
-        private bool existDataBase()
+        private bool ExistDataBase()
         {
             return (File.Exists(pathSQL));
         }
 
-        private void prontInfo(string mess)
+        private void ProntInfo(string mess)
         {
             MessageBox.Show(mess, "EvolPras", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void prontError(string mess)
+        private void ProntError(string mess)
         {
             MessageBox.Show(mess, "Exeptions", MessageBoxButton.OK, MessageBoxImage.Error);
         }

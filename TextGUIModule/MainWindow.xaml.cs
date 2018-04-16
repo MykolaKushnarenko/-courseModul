@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -28,17 +23,21 @@ namespace TextGUIModule
         private string path = "";
         private Analitics code;
         private DataBaseLite db;
+        private bool mainCodeIs = true;
+        private bool childCodeIs = true;
+        private bool searchFileNow = false;
+        private bool searchSubmitNow = false;
         public MainWindow()
         {
             InitializeComponent();
             db = new DataBaseLite();
             textCode.FontFamily = new FontFamily("8693.ttf");
-            textWrite("icons/Test2.cs", textCode);
-            textWrite("icons/Test4.java", textCode2);
+            //textWrite("icons/Test2.cs", textCode);
+            TextWrite("icons/Test4.java", textCode2);
             code = new Analitics();
         }
 
-        private void textWrite(string path, TextBox text)
+        private void TextWrite(string path, TextBox text)
         {
             using (StreamReader rw = new StreamReader(path))
             {
@@ -58,41 +57,81 @@ namespace TextGUIModule
 
         private void FineFile()
         {
-            string[] allFoundFiles;
-            using (var fbd = new winForms.FolderBrowserDialog())
+            //string[] allFoundFiles;
+            //using (var fbd = new winForms.FolderBrowserDialog())
+            //{
+            //    winForms.DialogResult result = fbd.ShowDialog();
+
+            //    if (result == winForms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            //    {
+            //        allFoundFiles = Directory.GetFiles(fbd.SelectedPath, "*.cs", SearchOption.AllDirectories);
+            //        foreach (string file in allFoundFiles)
+            //        {
+            //            string[] a = file.Split('\\');
+            //            FileList.Items.Add(a[a.Length-1]);
+            //        }
+            //    }
+            //}
+
+            List<string> s = db.DescSubm();
+            FileList.Items.Clear();
+            foreach (var desc in s)
             {
-                winForms.DialogResult result = fbd.ShowDialog();
-
-                if (result == winForms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    allFoundFiles = Directory.GetFiles(fbd.SelectedPath, "*.cs", SearchOption.AllDirectories);
-                    foreach (string file in allFoundFiles)
-                    {
-                        string[] a = file.Split('\\');
-                        FileList.Items.Add(a[a.Length-1]);
-                    }
-                }
+                ListViewItem item = new ListViewItem {Content = desc};
+                FileList.Items.Add(item);
             }
-
            
            page.SelectedIndex = 1;
         }
 
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+           
             var item = sender as ListViewItem;
+            string content = item.Content.ToString();
+            string[] get = content.Split(new char[] {'|'});
             if (item != null && item.IsSelected)
             {
+                if (mainCodeIs)
+                {
+
+                    textCode.Text = db.GetOrignCode(get[get.Length - 1]);
+                    db.SetCodeMain(get[get.Length - 1], code);
+                    mainCodeIs = false;
+                    childCodeIs = true;
+                }
+                else if (childCodeIs)
+                {
+
+                        textCode2.Text = db.GetOrignCode(get[get.Length - 1]);
+                        db.SetCodeChild(get[get.Length - 1], code);
+                        childCodeIs = false;
+                        mainCodeIs = true;
+                    
+                }
+                if (searchSubmitNow)
+                {
+
+                    db.SearchIn(get[get.Length - 1]);
+                    textCode2.Text = db.GetOrignCodeFromId(db.IdiDenticalFie);
+                    db.SetCodeChild(db.IdiDenticalFie, code);
+                    childCodeIs = false;
+                    mainCodeIs = true;
+                    searchSubmitNow = false;
+                    Compare();
+                }
                 page.SelectedIndex = 0;
             }
         }
 
         private void LoadFile_OnClick(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog myDialog = new OpenFileDialog();
-            myDialog.Filter = "Исходные коды(*.cs;*.java;*.cpp;*.c)|*.cs;*.java;*.cpp;*.c" + "|Все файлы (*.*)|*.* ";
-            myDialog.CheckFileExists = true;
-            myDialog.Multiselect = true;
+            OpenFileDialog myDialog = new OpenFileDialog
+            {
+                Filter = "Исходные коды(*.cs;*.java;*.cpp;*.c)|*.cs;*.java;*.cpp;*.c" + "|Все файлы (*.*)|*.* ",
+                CheckFileExists = true,
+                Multiselect = true
+            };
             if (myDialog.ShowDialog() == true)
             {
                 path = myDialog.FileName;
@@ -108,11 +147,17 @@ namespace TextGUIModule
 
         private void NewSubmit_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            page.SelectedIndex = 2;
-            Complite.Visibility = Visibility.Hidden;
-            StatsComple((string)charpRButton.Content);
+            searchFileNow = false;
+            SubmPage();
         }
 
+        private void SubmPage()
+        {
+            page.SelectedIndex = 2;
+            Complite.Visibility = Visibility.Hidden;
+            FileListCompil.Items.Clear();
+            StatsComple((string)charpRButton.Content);
+        }
         private void Complite_OnClick(object sender, RoutedEventArgs e)
         {
             string TypeCompiler = (string)FileListCompil.SelectedItem;
@@ -133,7 +178,7 @@ namespace TextGUIModule
             {
                 lang = (string)cRButton.Content;
             }
-            db.AddingSubmit(NameBox.Text,BoxDesc.Text, TypeCompiler,path);
+            db.AddingSubmit(NameBox.Text,BoxDesc.Text, TypeCompiler,path, searchFileNow);
             MessageBox.Show("Complite!", "EvolPras", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -146,6 +191,7 @@ namespace TextGUIModule
 
         private void StatsComple(string langName)
         {
+            
             List<string> typeCompil = db.GetCompile(langName);
             foreach (var type in typeCompil)
             {
@@ -169,6 +215,41 @@ namespace TextGUIModule
         {
             FileListCompil.Items.Clear();
             StatsComple((string)cRButton.Content);
+        }
+
+        private void MainCode_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Compare()
+        {
+            vFishAlg.Text = code.AlgVarnFish().ToString() + "%";
+            wShinAlg.Text = code.AlgVShiling().ToString() + "%";
+            heskelAlg.Text = code.AlgHeskel().ToString() + "%";
+        }
+        private void Compare_OnClick(object sender, RoutedEventArgs e)
+        {
+            //db.SetCodeMain(1,code);
+            //db.SetCodeChild(1,code);
+            Compare();
+        }
+
+        private void Close_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void SearchIn_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            searchFileNow = true;
+            SubmPage();
+        }
+
+        private void SearshInBD_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            searchSubmitNow = true;
+            FineFile();
         }
     }
 }

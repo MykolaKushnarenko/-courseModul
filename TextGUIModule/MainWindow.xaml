@@ -8,6 +8,108 @@
         Background="Transparent" 
         WindowStyle="None"
         Title="MainWindow" Height="502.225" Width="969.529">
+    <Window.Resources>
+        <SolidColorBrush x:Key="ControlForeground" Color="#FFFD3101" />
+        <SolidColorBrush x:Key="DisabledBorderBrush" Color="#66000000"/>
+        <Color x:Key="DisabledForeground">#FF474747</Color>
+        <LinearGradientBrush x:Key="ControlBackgroundNormal" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FF605F5F" Offset="0"/>
+            <GradientStop Color="#FF030303" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ControlBorderBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#FF686868" Offset="0.204" />
+            <GradientStop Color="#FF686868" Offset="0.864" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="DisabledBrush" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFC4C4C4" Offset="0"/>
+            <GradientStop Color="#FFB7B7B7" Offset="0.7"/>
+            <GradientStop Color="#FFA2A2A2" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ControlActiveBorderBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#FFBE6E1D" Offset="0.204" />
+            <GradientStop Color="#FFCD661E" Offset="0.864" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ControlBackgroundOver" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FF605F5F" Offset="0"/>
+            <GradientStop Color="#FF030303" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ControlBackgroundPressed" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FF7C7C7C" Offset="0"/>
+            <GradientStop Color="#FF1F1E1E" Offset="1"/>
+        </LinearGradientBrush>
+        <Style x:Key="FocusLine">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle SnapsToDevicePixels="True" Stroke="#ddd" StrokeDashArray="1 2" StrokeThickness="1" Margin="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="TextOptions.TextHintingMode" Value="Animated" />
+            <Setter Property="Foreground" Value="{StaticResource ControlForeground}"/>
+            <Setter Property="Background" Value="{StaticResource ControlBackgroundNormal}"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusLine}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="Root">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.4" />
+                                        <VisualTransition To="Pressed" />
+                                        <VisualTransition From="Pressed" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="PressedElement" Storyboard.TargetProperty="(FrameworkElement.Opacity)" To="0" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="MouseOverElement" Storyboard.TargetProperty="(FrameworkElement.Opacity)" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="NormalElement" Storyboard.TargetProperty="(FrameworkElement.Opacity)" To="0.25" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="PressedElement" Storyboard.TargetProperty="(FrameworkElement.Opacity)" To="1" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="MouseOverElement" Storyboard.TargetProperty="(FrameworkElement.Opacity)" To="0" />
+                                            <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentHost" To="#32ebfb"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="NormalElement" Storyboard.TargetProperty="(FrameworkElement.Opacity)" To="0" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="DisabledElement" Storyboard.TargetProperty="(FrameworkElement.Opacity)" To="1" />
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="ContentHost" Storyboard.TargetProperty="(FrameworkElement.Opacity)" To="0.75" />
+                                            <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentHost" To="{StaticResource DisabledForeground}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="DisabledElement" Background="{StaticResource DisabledBrush}" CornerRadius="2" Opacity="0">
+                                <Border BorderBrush="{StaticResource DisabledBorderBrush}" BorderThickness="0,0,1,1" CornerRadius="2" />
+                            </Border>
+                            <Border x:Name="NormalElement" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            </Border>
+                            <Border x:Name="MouseOverElement" BorderBrush="{StaticResource ControlActiveBorderBrush}" Background="{StaticResource ControlBackgroundOver}" CornerRadius="2" Opacity="0" 
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <Border x:Name="PressedElement" Background="{StaticResource ControlBackgroundPressed}" CornerRadius="2" Opacity="0" BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{StaticResource ControlActiveBorderBrush}"/>
+                            <ContentPresenter x:Name="ContentHost" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border Width="auto" Height="502" BorderBrush="#FFFD3101" BorderThickness="2"
                 CornerRadius="0,30,0,30" VerticalAlignment="Top" Background="#FF222222">
@@ -27,13 +129,13 @@
                         <ColumnDefinition Width="106*"/>
                         <ColumnDefinition Width="397*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Padding="5" HorizontalAlignment="Center" Margin="15,472,0,0" Width="951" Grid.ColumnSpan="2" Background="#FFEE3F16"/>
+                    <Ellipse HorizontalAlignment="Left" Height="58" Margin="0,440,0,0" VerticalAlignment="Top" Width="58" Fill="#FFC14200"/>
+                    <TextBlock Padding="5" HorizontalAlignment="Center" Margin="15,472,0,0" Width="951" Grid.ColumnSpan="2" Background="#FFC14200"/>
                     <TextBlock x:Name="titul" Padding="0" Grid.ColumnSpan="2" Margin="0,0,0,440" ><InlineUIContainer/></TextBlock>
-                    <Ellipse HorizontalAlignment="Left" Height="58" Margin="0,440,0,-26" VerticalAlignment="Top" Width="58" Fill="#FFEE3F16"/>
-                    <TabControl x:Name ="page" HorizontalAlignment="Left" Height="472" VerticalAlignment="Top" Width="801" Margin="165,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Grid.ColumnSpan="2">
-                        <TabItem Header="TabItem" Visibility="Hidden">
-                            <Grid>
-                                <TextBox x:Name="textCode" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="444" TextWrapping="NoWrap" VerticalAlignment="Top" Width="360" Foreground="#FFF7F7F9" BorderBrush="#FFEE3F16" SelectionBrush="#FFDC00FF" FontFamily="Franklin Gothic Medium" Margin="0,0,-360,-435">
+                    <TabControl x:Name ="page" HorizontalAlignment="Left" Height="472" VerticalAlignment="Top" Width="865" Margin="76,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Grid.ColumnSpan="2">
+                        <TabItem Header="TabItem" Visibility="Hidden" Height="24" Margin="20,-10,-2,0">
+                            <Grid VerticalAlignment="Bottom">
+                                <TextBox x:Name="textCode" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="440" TextWrapping="NoWrap" VerticalAlignment="Top" Width="360" Foreground="#FFF7F7F9" BorderBrush="#FFEE3F16" SelectionBrush="#FFDC00FF" FontFamily="Franklin Gothic Medium" Margin="0,0,-360,-435">
                                     <TextBox.Background>
                                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                             <GradientStop Color="#FF222222"/>
@@ -43,7 +145,7 @@
                                         </LinearGradientBrush>
                                     </TextBox.Background>
                                 </TextBox>
-                                <TextBox x:Name="textCode2" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right" Height="444" TextWrapping="NoWrap" VerticalAlignment="Top" Width="360" Foreground="#FFF7F7F9" BorderBrush="#FFEE3F16" SelectionBrush="#FFDC00FF" FontFamily="Franklin Gothic Medium">
+                                <TextBox x:Name="textCode2" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right" Height="440" TextWrapping="NoWrap" Width="357" Foreground="#FFF7F7F9" BorderBrush="#FFEE3F16" SelectionBrush="#FFDC00FF" FontFamily="Franklin Gothic Medium">
                                     <TextBox.Background>
                                         <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                             <GradientStop Color="#FF222222"/>
@@ -53,59 +155,75 @@
                                         </LinearGradientBrush>
                                     </TextBox.Background>
                                 </TextBox>
+                                <Button x:Name="mainCode"  Content="Load Main" Height="31" Width="60" Click="MainCode_OnClick"/>
+                                <Button x:Name="chaildCode" Content="Load Chaild" Height="31" Width="60" Margin="0,78,0,0"/>
+                                <Button x:Name="compare"  Content="Compare" Height="31" Width="60" Margin="0,78,0,0" VerticalAlignment="Bottom" Click="Compare_OnClick"/>
+
                             </Grid>
                         </TabItem>
-                        <TabItem Header="info" Visibility="Hidden">
+                        <TabItem Header="info" Visibility="Hidden" Margin="-2,-2,-2,0">
                             <Grid>
-                                <Grid.Background>
-                                    <ImageBrush ImageSource="bin/Debug/icons/info.jpg"/>
-                                </Grid.Background>
-                                <ListView x:Name="FileList" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="600" Margin="105,53,0,0">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn/>
-                                        </GridView>
-                                    </ListView.View>
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                </ListView>
-                                
+
+                                <StackPanel>
+                                    <ListView x:Name="FileList" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="600" Margin="105,53,0,0">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn/>
+                                            </GridView>
+                                        </ListView.View>
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListViewItem}">
+                                                <EventSetter Event="UIElement.PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                    </ListView>
+                                </StackPanel>
 
                             </Grid>
                         </TabItem>
                         <TabItem Header="submit" Visibility="Hidden" Width="48">
                             <Grid>
-                                <Grid.Background>
+                                <!--<Grid.Background>
                                     <ImageBrush ImageSource="bin/Debug/icons/submit.jpg"/>
-                                </Grid.Background>
-                                <TextBox x:Name="NameBox" Height="23" TextWrapping="Wrap" Text="Имя и Фамилия" Width="175" Margin="21,69,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                <TextBox x:Name="BoxDesc" Height="72" TextWrapping="Wrap" Text="Краткое описание" Width="175" Margin="21,108,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                <Button x:Name="loadFile" Content="Выбрать файл." HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Margin="39,319,0,0" Click="LoadFile_OnClick" />
-                                <Button x:Name="Complite" Content="Загрузить в базу." HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="39,344,0,0" Click="Complite_OnClick"/>
-                                <StackPanel Background="Chartreuse" Height="65" Width="100" x:Name="stackPanel" HorizontalAlignment="Left" Margin="37,0,0,0" >
-                                    <RadioButton x:Name="charpRButton"  GroupName="Languages" Content="C#" IsChecked="True"  Click="CharpRButton_OnClick"/>
-                                    <RadioButton x:Name="javaRButton" GroupName="Languages" Content="Java" Click="JavaRButton_OnClick" />
-                                    <RadioButton x:Name="cppRButton" GroupName="Languages" Content="C++" Click="CppRButton_OnClick" />
-                                    <RadioButton x:Name="cRButton" GroupName="Languages" Content="C" Click="CRButton_OnClick" />
+                                </Grid.Background>-->
+                                <StackPanel Background="#FFE05100" Opacity="0.2"/>
+                                <StackPanel Width="662" Height="348">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                        <StackPanel Margin="2">
+                                            <Label Content="Имя и Фамилия:" FontFamily="Impact" FontSize="14"/>
+                                            <TextBox x:Name="NameBox" Height="23" TextWrapping="Wrap" Text="Имя и Фамилия" Width="175"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"/>
+                                            <Label Content="Краткое описание исх.:" FontFamily="Impact" FontSize="14"/>
+                                            <TextBox x:Name="BoxDesc" Height="72" TextWrapping="Wrap" Text="Краткое описание" Width="175"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"/>
+                                            <Label Content="Исходный язык:" FontFamily="Impact" FontSize="14"/>
+                                            <StackPanel Height="65" Width="100" x:Name="stackPanel" HorizontalAlignment="Left" Margin="2">
+                                                <RadioButton x:Name="charpRButton"  GroupName="Languages" Content="C#" IsChecked="True"  Click="CharpRButton_OnClick"/>
+                                                <RadioButton x:Name="javaRButton" GroupName="Languages" Content="Java" Click="JavaRButton_OnClick" />
+                                                <RadioButton x:Name="cppRButton" GroupName="Languages" Content="C++" Click="CppRButton_OnClick" />
+                                                <RadioButton x:Name="cRButton" GroupName="Languages" Content="C" Click="CRButton_OnClick" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="Компилятор:" FontFamily="Impact" FontSize="14"/>
+                                            <ListView x:Name="FileListCompil" Margin="4" HorizontalAlignment="Left" Height="179" VerticalAlignment="Top" Width="380" >
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn/>
+                                                </GridView>
+                                            </ListView.View>
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListViewItem}"/>
+                                            </ListView.ItemContainerStyle>
+                                        </ListView>
+                                            </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel  HorizontalAlignment="Center" Margin="80,27,80,80" VerticalAlignment="Bottom">
+                                        <Button x:Name="loadFile"  Margin="5" Content="Выбрать файл." HorizontalAlignment="Left" VerticalAlignment="Top" Width="89"  Click="LoadFile_OnClick" />
+                                        <Button x:Name="Complite" Content="Загрузить в базу." HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"  Click="Complite_OnClick"/>
+                                    </StackPanel>
                                 </StackPanel>
-                                <ListView x:Name="FileListCompil" HorizontalAlignment="Left" Height="179" VerticalAlignment="Top" Width="380" Margin="255,53,0,0">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn/>
-                                        </GridView>
-                                    </ListView.View>
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                           
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                </ListView>
                             </Grid>
                         </TabItem>
-                        
+
                     </TabControl>
                     <DockPanel>
                         <Canvas>
@@ -132,30 +250,32 @@
                                 </StackPanel.Style>
                                 <StackPanel.Background>
                                     <LinearGradientBrush>
-                                        <GradientStop Color="OrangeRed" Offset="0.0" />
-                                        <GradientStop Color="BlueViolet" Offset="0.7" />
-                                        <GradientStop Color="Blue" Offset="1.0" />
+                                        <GradientStop Color="#FFD44900" Offset="0.0" />
                                     </LinearGradientBrush>
                                 </StackPanel.Background>
-                                <DockPanel x:Name="newSubmit" MouseDown="NewSubmit_OnMouseDown" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199" >
+                                <DockPanel x:Name="newSubmit" MouseDown="NewSubmit_OnMouseDown" Margin="11,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199" >
                                     <Label Content="Выбрать файл" Width="122" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
-                                    <Image Visibility="Visible" Source="bin/Debug/icons/computer.png" Height="60" Width="80" HorizontalAlignment="Right"/>
+                                    <Image Visibility="Visible" Source="bin/Debug/icons/text-file.png" Height="60" Width="80" HorizontalAlignment="Right"/>
                                 </DockPanel>
-                                <DockPanel  Margin="5">
+                                <DockPanel Margin="5"  x:Name="searchIn" MouseDown="SearchIn_OnMouseDown">
+                                    <Label Content="Поиск по базе" FontFamily="Impact" VerticalAlignment="Center" HorizontalAlignment="Center" Width="94" Padding="15" FontSize="16"/>
+                                    <Image Source="bin/Debug/icons/searching-data-in-database.png" Width="80" Height="60" HorizontalAlignment="Right"/>
+                                </DockPanel>
+                                <DockPanel x:Name="searshInBD" MouseDown="SearshInBD_OnMouseDown" Margin="5">
                                     <Label Content="Выбор с базы" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
-                                    <Image Source="bin/Debug/icons/internet.png" HorizontalAlignment="Right" Width="80" Height="60"/>
+                                    <Image Source="bin/Debug/icons/database (1).png" HorizontalAlignment="Right" Width="80" Height="60"/>
                                 </DockPanel>
                                 <DockPanel Margin="5">
-                                    <Label Content="История" FontFamily="Impact" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Width="94" Padding="15"/>
-                                    <Image Source="bin/Debug/icons/center-alignment.png" Width="80" Height="60" HorizontalAlignment="Right"/>
+                                    <Label Content="История" FontFamily="Impact" VerticalAlignment="Center" HorizontalAlignment="Center" Width="94" Padding="15" FontSize="16"/>
+                                    <Image Source="bin/Debug/icons/hourglass.png" Width="80" Height="60" HorizontalAlignment="Right"/>
                                 </DockPanel>
                                 <DockPanel Margin="5">
                                     <Label Content="О программе" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
-                                    <Image Source="bin/Debug/icons/browser.png" Width="80" Height="60" HorizontalAlignment="Right"/>
+                                    <Image Source="bin/Debug/icons/info (1).png" Width="80" Height="60" HorizontalAlignment="Right"/>
                                 </DockPanel>
                                 <DockPanel Margin="5" MouseDown="DockPanel_MouseDown">
                                     <Label Content="Разработчки" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
-                                    <Image Source="bin/Debug/icons/user.png" Width="80" Height="60" HorizontalAlignment="Right"/>
+                                    <Image Source="bin/Debug/icons/businessman.png" Width="80" Height="60" HorizontalAlignment="Right"/>
                                 </DockPanel>
 
                             </StackPanel>
@@ -164,6 +284,37 @@
                 </Grid>
             </Grid>
         </Border>
+        <Button x:Name="close" Click="Close_OnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="25" Margin="918,4,0,0">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="Transparent">
+                        <Path x:Name="Pt" Data="M0,0 M0.2,0.2 L 0.8,0.8 M0.2,0.8 L0.8,0.2 M1,1"
+                              Stretch="Uniform" Stroke="Red" StrokeThickness="2"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#FFC14200"/>
+                            <Setter TargetName="Pt" Property="Stroke" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <StatusBar x:Name ="status"  HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="898" Margin="50,473,0,0" Background="{x:Null}">
+            <StackPanel Width="146" Orientation="Horizontal" HorizontalAlignment="Right" Margin="201,0,0,0">
+                <Label Content="W-shingling: "></Label>
+                <TextBlock x:Name="wShinAlg" Text="" Margin="0,5,0,0"></TextBlock>
+            </StackPanel>
+            <StackPanel Width="146" Orientation="Horizontal" HorizontalAlignment="Right" Margin="82,0,0,0">
+                <Label Content="Levenshtein distance: "></Label>
+                <TextBlock x:Name="vFishAlg" Text="" Margin="0,5,0,0"></TextBlock>
+            </StackPanel>
+            <StackPanel Width="146" Orientation="Horizontal" HorizontalAlignment="Right" Margin="96,0,0,0">
+                <Label Content="Heskel: "></Label>
+                <TextBlock x:Name="heskelAlg" Text="" Margin="0,5,0,0"></TextBlock>
+            </StackPanel>
+
+        </StatusBar>
     </Grid>
 </Window>
 

@@ -39,6 +39,22 @@ namespace TextGUIModule
             
         }
 
+        public void SetCodeMain(string code)
+        {
+            compliteCodeFirst.Clear();
+            for (int i = 0; i < code.Length; i++)
+            {
+                compliteCodeFirst.Add(code[i].ToString());
+            }
+        }
+        public void SetCodeChild(string code)
+        {
+            compliteCodeSecond.Clear();
+            for (int i = 0; i < code.Length; i++)
+            {
+                compliteCodeSecond.Add(code[i].ToString());
+            }
+        }
         public List<string> InserToDB()
         {
             List<string> grams = new List<string>();
@@ -104,7 +120,7 @@ namespace TextGUIModule
             }
         }
 
-        private  double AlgVShiling()
+        public  double AlgVShiling()
         {
             SortedSet<string> setA = new SortedSet<string>();
             SortedSet<string> setB = new SortedSet<string>();
@@ -128,7 +144,7 @@ namespace TextGUIModule
             int y = hashSetAv2.Count;
             return ((double)y / x) * 100;
         }
-        private  double AlgVarnFish()
+        public double AlgVarnFish()
         {
             string oneCodeText = string.Join("", compliteCodeFirst.ToArray());
             string twoCodeText = string.Join("", compliteCodeSecond.ToArray());
@@ -179,7 +195,7 @@ namespace TextGUIModule
                 }
             }
         }
-        private  double AlgHeskel()
+        public double AlgHeskel()
         {
             Dictionary<string, double> dictHeslCodeFirst = new Dictionary<string, double>();
             Dictionary<string, double> dictHeslCodeSecond = new Dictionary<string, double>();
