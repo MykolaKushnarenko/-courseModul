@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TextGUIModule.Analitics">
+    <Position X="22.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAMAAQEIAUIAQAAEAAAAAAIAACgAAgAABECAA=</HashCode>
+      <FileName>Analitics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextGUIModule.App" Collapsed="true">
+    <Position X="18.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextGUIModule.ATokkining" Collapsed="true">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAgAAAAAgAAAAAEAAAACAQAAgAIAAADA=</HashCode>
+      <FileName>ATokkining.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextGUIModule.DataBaseLite" Collapsed="true">
+    <Position X="20.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkBAAAABpQAABQAAAEAAAgIgAA4QAEAIgAgAACiAABA=</HashCode>
+      <FileName>DataBaseLite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextGUIModule.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAgAIBQAAAQJgAAAAAqUDAAIAgAACCBCABCBAAJIAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TextGUIModule.Normalization">
+    <Position X="18.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAgAAAAAAAAAAEQBAAAEAAA=</HashCode>
+      <FileName>Normalization.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextGUIModule.TokkingJava" Collapsed="true">
+    <Position X="15.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAgAAAAAEAQAACAQAAAAIAAACA=</HashCode>
+      <FileName>TokkingJava.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextGUIModule.TokkingSharp">
+    <Position X="10.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAgAAAAAEAQAACAQAAAAIAAACA=</HashCode>
+      <FileName>TokkingSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextGUIModule.TokkingСPP" Collapsed="true">
+    <Position X="13" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAgAAAAAEAQAACAQAAAAIAAACA=</HashCode>
+      <FileName>TokkingСPP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

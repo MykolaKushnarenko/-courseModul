@@ -7,11 +7,19 @@
         AllowsTransparency="True" 
         Background="Transparent" 
         WindowStyle="None"
-        Title="MainWindow" Height="502.225" Width="969.529">
+        Title="CoDEmpare" Height="502.225" Width="969.529">
     <Window.Resources>
         <SolidColorBrush x:Key="ControlForeground" Color="#FFFD3101" />
         <SolidColorBrush x:Key="DisabledBorderBrush" Color="#66000000"/>
+        <SolidColorBrush x:Key="ControlForegroundWhite" Color="Black" />
+        <SolidColorBrush x:Key="ColorText" Color="#FFFD3101" />
+        <Color x:Key="HighlightComboBoxItem1">#FF333333</Color>
+        <Color x:Key="HighlightComboBoxItem2">#FF474747</Color>
+        <Color x:Key="DisabledForeground3">#FF171717</Color>
         <Color x:Key="DisabledForeground">#FF474747</Color>
+        <Color x:Key="ColorForeground">#FFFD9804</Color>
+        <Color x:Key="ColorForegroundWhite">Red</Color>
+        <SolidColorBrush x:Key="DisabledForeground2" Color="Red"/>
         <LinearGradientBrush x:Key="ControlBackgroundNormal" EndPoint="0,1" StartPoint="0,0">
             <GradientStop Color="#FF605F5F" Offset="0"/>
             <GradientStop Color="#FF030303" Offset="1"/>
@@ -29,6 +37,19 @@
             <GradientStop Color="#FFBE6E1D" Offset="0.204" />
             <GradientStop Color="#FFCD661E" Offset="0.864" />
         </LinearGradientBrush>
+        <RadialGradientBrush x:Key="ControlBackgroundLine">
+            <RadialGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.804" ScaleY="0.743" />
+                    <SkewTransform CenterX="0.5" CenterY="0.5" />
+                    <RotateTransform CenterX="0.5" CenterY="0.5" />
+                    <TranslateTransform Y="0.47999998927116394" />
+                </TransformGroup>
+            </RadialGradientBrush.RelativeTransform>
+            <GradientStop Color="#FFF38A0A" Offset="0.209" />
+            <GradientStop Color="#0098DAFF" Offset="1" />
+            <GradientStop Color="#FFDDDDDD" Offset="0" />
+        </RadialGradientBrush>
         <LinearGradientBrush x:Key="ControlBackgroundOver" EndPoint="0,1" StartPoint="0,0">
             <GradientStop Color="#FF605F5F" Offset="0"/>
             <GradientStop Color="#FF030303" Offset="1"/>
@@ -37,6 +58,391 @@
             <GradientStop Color="#FF7C7C7C" Offset="0"/>
             <GradientStop Color="#FF1F1E1E" Offset="1"/>
         </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ControlLightBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FF6B6B6B" Offset="0"/>
+            <GradientStop Color="#FF9D6242" Offset="1"/>
+        </LinearGradientBrush>
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="Background" Value="{StaticResource ControlLightBackground}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{StaticResource ControlForegroundWhite}" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListView}">
+                        <Border x:Name="Bd" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" 
+                            BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                            <ScrollViewer Padding="{TemplateBinding Padding}" Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsGrouping" Value="True">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource DisabledBrush}" />
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource DisabledBorderBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <DockPanel Margin="{TemplateBinding Padding}">
+                                <ScrollViewer Focusable="False" DockPanel.Dock="Top" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                                    <GridViewHeaderRowPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="2,0,2,0" 
+                                                            AllowsColumnReorder="{Binding Path=TemplatedParent.View.AllowsColumnReorder, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                            ColumnHeaderContainerStyle="{Binding Path=TemplatedParent.View.ColumnHeaderContainerStyle, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                            ColumnHeaderContextMenu="{Binding Path=TemplatedParent.View.ColumnHeaderContextMenu, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                            ColumnHeaderTemplate="{Binding Path=TemplatedParent.View.ColumnHeaderTemplate, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                            ColumnHeaderTemplateSelector="{Binding Path=TemplatedParent.View.ColumnHeaderTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                            ColumnHeaderToolTip="{Binding Path=TemplatedParent.View.ColumnHeaderToolTip, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                            Columns="{Binding Path=TemplatedParent.View.Columns, RelativeSource={RelativeSource TemplatedParent}}" />
+                                </ScrollViewer>
+                                <ScrollContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" x:Name="PART_ScrollContentPresenter"
+                                                    Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                                    CanContentScroll="{TemplateBinding CanContentScroll}" KeyboardNavigation.DirectionalNavigation="Local" />
+                            </DockPanel>
+                            <ScrollBar Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Cursor="Arrow" x:Name="PART_HorizontalScrollBar"
+                                   Grid.Row="1" Orientation="Horizontal" ViewportSize="{TemplateBinding ViewportWidth}" Maximum="{TemplateBinding ScrollableWidth}" 
+                                   Minimum="0.0" Value="{Binding Path=HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <ScrollBar Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Cursor="Arrow" x:Name="PART_VerticalScrollBar" 
+                                   Grid.Column="1" Orientation="Vertical" ViewportSize="{TemplateBinding ViewportHeight}" Maximum="{TemplateBinding ScrollableHeight}" 
+                                   Minimum="0.0" Value="{Binding Path=VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <DockPanel Grid.Column="1" Grid.Row="1" Background="{Binding Path=Background, ElementName=PART_VerticalScrollBar}" LastChildFill="False">
+                                <Rectangle Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Width="1" Fill="White" DockPanel.Dock="Left" />
+                                <Rectangle Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Height="1" Fill="White" DockPanel.Dock="Top" />
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListViewItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Stroke="{StaticResource ControlActiveBorderBrush}" StrokeDashArray="1 2" StrokeThickness="1.5" RadiusX="2" RadiusY="2" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ListViewItem}">
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource ListViewItemFocusVisual}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"/>
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="0,0,0,1" />
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="HoverOn">
+                                <ColorAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="row_content"
+                                            To="{StaticResource ColorForeground}"/>
+                            </Storyboard>
+                            <Storyboard x:Key="HoverOff">
+                                <ColorAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="row_content"
+                                            To="{StaticResource ColorForegroundWhite}"/>
+                            </Storyboard>
+                            <Storyboard x:Key="SelectedOn">
+                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="HoverSelected" To="1"/>
+                            </Storyboard>
+                            <Storyboard x:Key="SelectedOff">
+                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="HoverSelected" To="0"/>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Border SnapsToDevicePixels="True" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" x:Name="border">
+                            <Grid Margin="2,0">
+                                <Rectangle x:Name="Background" IsHitTestVisible="False" Fill="{TemplateBinding Background}" RadiusX="0"
+                                       Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}"/>
+                                <Rectangle x:Name="HoverSelected" IsHitTestVisible="False" Opacity="0" RadiusX="0">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0" Color="{StaticResource HighlightComboBoxItem1}"/>
+                                            <GradientStop Offset="1" Color="{StaticResource HighlightComboBoxItem2}"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Border Background="Transparent">
+                                    <GridViewRowPresenter x:Name="row_content" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Stretch" Margin="0,2" />
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource SelectedOn}"/>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource SelectedOff}"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="Selector.IsSelected" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOn}"/>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOff}"/>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{StaticResource DisabledForeground3}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="GridViewColumnHeaderGripper" TargetType="{x:Type Thumb}">
+            <Setter Property="Canvas.Right" Value="-8.5" />
+            <Setter Property="Width" Value="18" />
+            <Setter Property="Height" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource TemplatedParent}}" />
+            <Setter Property="Padding" Value="0,3,0,4" />
+            <Setter Property="Background" Value="{StaticResource ControlForegroundWhite}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border Padding="{TemplateBinding Padding}" Background="#00FFFFFF">
+                            <Rectangle HorizontalAlignment="Center" Width=".5" Fill="White"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Type GridViewColumnHeader}" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0" Color="{StaticResource HighlightComboBoxItem1}"/>
+                        <GradientStop Offset="1" Color="{StaticResource HighlightComboBoxItem2}"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="{StaticResource ControlForeground}"/>
+            <Setter Property="MinHeight" Value="24"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="HoverOn">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="HoverBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="HoverOff">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="HoverBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="PressedOn">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Main" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value=".8"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="PressedOff">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Main" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Grid Margin="0,1">
+                            <Grid>
+                                <Border x:Name="Main" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" 
+                                    Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderThickness}" CornerRadius="0" />
+                                <Border x:Name="HoverBorder" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" 
+                                    Background="{StaticResource ControlBackgroundLine}" BorderBrush="{x:Null}" CornerRadius="0" Opacity="0" />
+                                <Border BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" BorderBrush="{StaticResource ControlForegroundWhite}">
+                                    <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  RecognizesAccessKey="True" Margin="2" />
+                                </Border>
+                            </Grid>
+                            <Canvas>
+                                <Thumb x:Name="PART_HeaderGripper" Style="{StaticResource GridViewColumnHeaderGripper}" HorizontalAlignment="Stretch" />
+                            </Canvas>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOff}" x:Name="HoverOff_BeginStoryboard"/>
+                                </Trigger.ExitActions>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOn}"/>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource PressedOff}" x:Name="PressedOff_BeginStoryboard"/>
+                                </Trigger.ExitActions>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource PressedOn}" x:Name="PressedOn_BeginStoryboard"/>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="Height" Value="Auto">
+                                <Setter Property="MinHeight" Value="24" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForeground2}" />
+                                <Setter Property="Opacity" TargetName="Main" Value=".6"/>
+                            </Trigger>
+                            <Trigger Property="Role" Value="Padding">
+                                <Setter TargetName="PART_HeaderGripper" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Role" Value="Floating">
+                                <Setter TargetName="PART_HeaderGripper" Property="Visibility" Value="Collapsed" />
+                                <Setter Property="Foreground" Value="{StaticResource ControlForegroundWhite}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ListBox}">
+            <Setter Property="Foreground" Value="{StaticResource ControlForegroundWhite}"/>
+            <Setter Property="Background" Value="{StaticResource ControlLightBackground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBox}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                            <ScrollViewer>
+                                <ItemsPresenter Margin="4"/>
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource DisabledBrush}" TargetName="border"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" TargetName="border"/>
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{StaticResource DisabledForeground}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="True">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="HoverOn">
+                                <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="content"
+                                            To="{StaticResource ColorForeground}"/>
+                            </Storyboard>
+                            <Storyboard x:Key="HoverOff">
+                                <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="content"
+                                            To="{StaticResource ColorForegroundWhite}"/>
+                            </Storyboard>
+                            <Storyboard x:Key="SelectedOn">
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="selected_bg" Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                             To="1"/>
+                            </Storyboard>
+                            <Storyboard x:Key="SelectedOff">
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="selected_bg" Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                             To="0"/>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Grid Background="{TemplateBinding Background}" Margin="1,1,1,1" SnapsToDevicePixels="True" x:Name="grid">
+                            <Rectangle x:Name="bg" IsHitTestVisible="False" Fill="Transparent"/>
+                            <Rectangle x:Name="selected_bg" IsHitTestVisible="False" Opacity="0">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="{StaticResource HighlightComboBoxItem1}"/>
+                                        <GradientStop Offset="1" Color="{StaticResource HighlightComboBoxItem2}"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <ContentPresenter x:Name="content" Margin="3" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOn}"/>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOff}"/>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource ControlForeground}"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOn}"/>
+                                    <BeginStoryboard Storyboard="{StaticResource SelectedOn}"/>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource SelectedOff}"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{StaticResource DisabledForeground}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+        </Style>
         <Style x:Key="FocusLine">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -131,7 +537,6 @@
                     </Grid.ColumnDefinitions>
                     <Ellipse HorizontalAlignment="Left" Height="58" Margin="0,440,0,0" VerticalAlignment="Top" Width="58" Fill="#FFC14200"/>
                     <TextBlock Padding="5" HorizontalAlignment="Center" Margin="15,472,0,0" Width="951" Grid.ColumnSpan="2" Background="#FFC14200"/>
-                    <TextBlock x:Name="titul" Padding="0" Grid.ColumnSpan="2" Margin="0,0,0,440" ><InlineUIContainer/></TextBlock>
                     <TabControl x:Name ="page" HorizontalAlignment="Left" Height="472" VerticalAlignment="Top" Width="865" Margin="76,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Grid.ColumnSpan="2">
                         <TabItem Header="TabItem" Visibility="Hidden" Height="24" Margin="20,-10,-2,0">
                             <Grid VerticalAlignment="Bottom">
@@ -155,9 +560,6 @@
                                         </LinearGradientBrush>
                                     </TextBox.Background>
                                 </TextBox>
-                                <Button x:Name="mainCode"  Content="Load Main" Height="31" Width="60" Click="MainCode_OnClick"/>
-                                <Button x:Name="chaildCode" Content="Load Chaild" Height="31" Width="60" Margin="0,78,0,0"/>
-                                <Button x:Name="compare"  Content="Compare" Height="31" Width="60" Margin="0,78,0,0" VerticalAlignment="Bottom" Click="Compare_OnClick"/>
 
                             </Grid>
                         </TabItem>
@@ -165,10 +567,10 @@
                             <Grid>
 
                                 <StackPanel>
-                                    <ListView x:Name="FileList" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="600" Margin="105,53,0,0">
+                                    <ListView x:Name="FileList" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="600" Margin="105,53,0,0" FontFamily="Impact">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn/>
+                                                <GridViewColumn>Краткое описание записи/истории</GridViewColumn>
                                             </GridView>
                                         </ListView.View>
                                         <ListView.ItemContainerStyle>
@@ -183,9 +585,6 @@
                         </TabItem>
                         <TabItem Header="submit" Visibility="Hidden" Width="48">
                             <Grid>
-                                <!--<Grid.Background>
-                                    <ImageBrush ImageSource="bin/Debug/icons/submit.jpg"/>
-                                </Grid.Background>-->
                                 <StackPanel Background="#FFE05100" Opacity="0.2"/>
                                 <StackPanel Width="662" Height="348">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
@@ -204,17 +603,17 @@
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Компилятор:" FontFamily="Impact" FontSize="14"/>
-                                            <ListView x:Name="FileListCompil" Margin="4" HorizontalAlignment="Left" Height="179" VerticalAlignment="Top" Width="380" >
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn/>
-                                                </GridView>
-                                            </ListView.View>
-                                            <ListView.ItemContainerStyle>
-                                                <Style TargetType="{x:Type ListViewItem}"/>
-                                            </ListView.ItemContainerStyle>
-                                        </ListView>
-                                            </StackPanel>
+                                            <ListView x:Name="FileListCompil" Margin="4" HorizontalAlignment="Left" Height="179" VerticalAlignment="Top" Width="380" FontFamily="Impact" >
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn>Компиляторы</GridViewColumn>
+                                                    </GridView>
+                                                </ListView.View>
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ListViewItem}"/>
+                                                </ListView.ItemContainerStyle>
+                                            </ListView>
+                                        </StackPanel>
                                     </StackPanel>
                                     <StackPanel  HorizontalAlignment="Center" Margin="80,27,80,80" VerticalAlignment="Bottom">
                                         <Button x:Name="loadFile"  Margin="5" Content="Выбрать файл." HorizontalAlignment="Left" VerticalAlignment="Top" Width="89"  Click="LoadFile_OnClick" />
@@ -223,7 +622,40 @@
                                 </StackPanel>
                             </Grid>
                         </TabItem>
+                        <TabItem Header="software" Visibility="Hidden" Margin="-2,-2,-2,0">
+                            <Grid>
 
+                                <StackPanel>
+                                    <StackPanel Width="715">
+                                        <Image Source="Resources/logo.png" Width="288" HorizontalAlignment="Left"></Image>
+                                        <Label Foreground="{StaticResource ColorText}" Content="CODEMPARE – мощный бесплатный модуль для выявления дублирующих программных кодов." FontFamily="Impact" FontSize="16"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="Эта программа дает возможность для быстрого нахождения, а также добавления в общию базу" FontFamily="Impact" FontSize="16"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="данных, новых коды. Бесплатная, новая версия CoDEmpare поддерживает Windows 7 и дает" FontFamily="Impact" FontSize="16"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="нам возможность работать со следующими форматами:cpp, java, cs, h, c. " FontFamily="Impact" FontSize="16"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="Можно смело сказать о том что данная программа просто необходимость для преподователей" FontFamily="Impact" FontSize="16"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="высшых учебных учереждений, которые хотят скоротить время на проверки лабораторных работ." FontFamily="Impact" FontSize="16"/>
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="developer" Visibility="Hidden" Margin="-2,-2,-2,0">
+                            <Grid>
+                                <StackPanel>
+                                    <StackPanel Width="715">
+                                        <Image Source="Resources/icon.png" Width="200" HorizontalAlignment="Center"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="CoDEmpare 1.1.0.1" FontFamily="Impact" FontSize="16" HorizontalAlignment="Center"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="Copyright© 2018 WarnCode Solution" FontFamily="Impact" FontSize="16" HorizontalAlignment="Center"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="All Rights Reserved" FontFamily="Impact" FontSize="16" HorizontalAlignment="Center"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="Name Dev: Nicholas Kushnarenko." FontFamily="Impact" FontSize="16" HorizontalAlignment="Center"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="Curator: Anton Paramonov" FontFamily="Impact" FontSize="16" HorizontalAlignment="Center"/>
+                                        <Label Foreground="{StaticResource ColorText}" Content="University: Donetsk National University" FontFamily="Impact" FontSize="16" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
                     </TabControl>
                     <DockPanel>
                         <Canvas>
@@ -254,26 +686,56 @@
                                     </LinearGradientBrush>
                                 </StackPanel.Background>
                                 <DockPanel x:Name="newSubmit" MouseDown="NewSubmit_OnMouseDown" Margin="11,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="199" >
-                                    <Label Content="Выбрать файл" Width="122" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
+                                    <DockPanel.ToolTip>
+                                        <ToolTip>
+                                            Добавление файла в базу данных.
+                                        </ToolTip>
+                                    </DockPanel.ToolTip>
+                                    <Label Content="Добавить файл" Width="122" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
                                     <Image Visibility="Visible" Source="bin/Debug/icons/text-file.png" Height="60" Width="80" HorizontalAlignment="Right"/>
                                 </DockPanel>
-                                <DockPanel Margin="5"  x:Name="searchIn" MouseDown="SearchIn_OnMouseDown">
-                                    <Label Content="Поиск по базе" FontFamily="Impact" VerticalAlignment="Center" HorizontalAlignment="Center" Width="94" Padding="15" FontSize="16"/>
+                                <DockPanel Margin="0,5"  x:Name="searchIn" MouseDown="SearchIn_OnMouseDown">
+                                    <DockPanel.ToolTip>
+                                        <ToolTip>
+                                            Добавить новый код и провести поиск на схожество.
+                                        </ToolTip>
+                                    </DockPanel.ToolTip>
+                                    <Label Content="Поиск файла" FontFamily="Impact" VerticalAlignment="Center" HorizontalAlignment="Center" Width="129" Padding="15" FontSize="16"/>
                                     <Image Source="bin/Debug/icons/searching-data-in-database.png" Width="80" Height="60" HorizontalAlignment="Right"/>
                                 </DockPanel>
                                 <DockPanel x:Name="searshInBD" MouseDown="SearshInBD_OnMouseDown" Margin="5">
-                                    <Label Content="Выбор с базы" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
+                                    <DockPanel.ToolTip>
+                                        <ToolTip>
+                                            Выбор файла с базы и поиск по всей базе.
+                                        </ToolTip>
+                                    </DockPanel.ToolTip>
+                                    <Label Content="Поиск с базы" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
                                     <Image Source="bin/Debug/icons/database (1).png" HorizontalAlignment="Right" Width="80" Height="60"/>
                                 </DockPanel>
-                                <DockPanel Margin="5">
+                                <DockPanel x:Name="history" Margin="5" MouseDown="History_OnMouseDown">
+                                    <DockPanel.ToolTip>
+                                        <ToolTip>
+                                            История сравнений.
+                                        </ToolTip>
+                                    </DockPanel.ToolTip>
                                     <Label Content="История" FontFamily="Impact" VerticalAlignment="Center" HorizontalAlignment="Center" Width="94" Padding="15" FontSize="16"/>
                                     <Image Source="bin/Debug/icons/hourglass.png" Width="80" Height="60" HorizontalAlignment="Right"/>
                                 </DockPanel>
-                                <DockPanel Margin="5">
+                                <DockPanel x:Name="descProgram" Margin="5" MouseDown="DescProgram_OnMouseDown">
+                                    <DockPanel.ToolTip>
+                                        <ToolTip>
+                                            Краткое описание модуля.
+                                        </ToolTip>
+                                    </DockPanel.ToolTip>
                                     <Label Content="О программе" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
                                     <Image Source="bin/Debug/icons/info (1).png" Width="80" Height="60" HorizontalAlignment="Right"/>
                                 </DockPanel>
                                 <DockPanel Margin="5" MouseDown="DockPanel_MouseDown">
+                                    <DockPanel.ToolTip>
+                                        <ToolTip>
+                                            О нас.
+                                        </ToolTip>
+                                    </DockPanel.ToolTip>
                                     <Label Content="Разработчки" FontFamily="Impact" FontSize="16" VerticalAlignment="Center"/>
                                     <Image Source="bin/Debug/icons/businessman.png" Width="80" Height="60" HorizontalAlignment="Right"/>
                                 </DockPanel>
@@ -284,6 +746,7 @@
                 </Grid>
             </Grid>
         </Border>
+        <TextBlock x:Name="titul" MouseLeftButtonDown="Titul_OnMouseLeftButtonDown" Padding="0" Margin="0,0,3.6,476.4" ><InlineUIContainer/></TextBlock>
         <Button x:Name="close" Click="Close_OnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="25" Margin="918,4,0,0">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
@@ -305,7 +768,7 @@
                 <Label Content="W-shingling: "></Label>
                 <TextBlock x:Name="wShinAlg" Text="" Margin="0,5,0,0"></TextBlock>
             </StackPanel>
-            <StackPanel Width="146" Orientation="Horizontal" HorizontalAlignment="Right" Margin="82,0,0,0">
+            <StackPanel Width="203" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label Content="Levenshtein distance: "></Label>
                 <TextBlock x:Name="vFishAlg" Text="" Margin="0,5,0,0"></TextBlock>
             </StackPanel>

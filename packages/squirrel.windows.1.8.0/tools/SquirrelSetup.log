@@ -1,0 +1,124 @@
+﻿2018-04-30 19:05:51> Program: Starting Squirrel Updater: --releasify Codempare.1.0.0.nupkg
+2018-04-30 19:05:51> Program: Bootstrapper EXE found at:C:\Users\nikok\source\repos\-courseModul-master\packages\squirrel.windows.1.8.0\tools\Setup.exe
+2018-04-30 19:05:51> Program: Creating release package: C:\Users\nikok\source\repos\-courseModul-master\TextGUIModule\bin\Release\Releases\Codempare.1.0.0.nupkg
+2018-04-30 19:05:51> ReleasePackage: Creating release package: C:\Users\nikok\source\repos\-courseModul-master\TextGUIModule\bin\Release\Releases\Codempare.1.0.0.nupkg => C:\Users\nikok\source\repos\-courseModul-master\TextGUIModule\bin\Release\Releases\Codempare-1.0.0-full.nupkg
+2018-04-30 19:05:52> ReleasePackage: Extracting dependent packages: []
+2018-04-30 19:05:52> ReleasePackage: Removing unnecessary data
+2018-04-30 19:05:52> ReleasePackage: No release notes found in C:\Users\nikok\AppData\Local\SquirrelTemp\tempa\Codempare.nuspec
+2018-04-30 19:05:54> Program: Building embedded zip file for Setup.exe
+2018-04-30 19:22:58> Program: Starting Squirrel Updater: --releasify Codempare.2.0.0.nupkg
+2018-04-30 19:22:58> Program: Bootstrapper EXE found at:C:\Users\nikok\source\repos\-courseModul-master\packages\squirrel.windows.1.8.0\tools\Setup.exe
+2018-04-30 19:22:58> Program: Creating release package: C:\Users\nikok\source\repos\-courseModul-master\TextGUIModule\bin\Release\Releases\Codempare.2.0.0.nupkg
+2018-04-30 19:22:58> ReleasePackage: Creating release package: C:\Users\nikok\source\repos\-courseModul-master\TextGUIModule\bin\Release\Releases\Codempare.2.0.0.nupkg => C:\Users\nikok\source\repos\-courseModul-master\TextGUIModule\bin\Release\Releases\Codempare-2.0.0-full.nupkg
+2018-04-30 19:23:00> ReleasePackage: Extracting dependent packages: []
+2018-04-30 19:23:00> ReleasePackage: Removing unnecessary data
+2018-04-30 19:23:00> ReleasePackage: No release notes found in C:\Users\nikok\AppData\Local\SquirrelTemp\tempa\Codempare.nuspec
+2018-04-30 19:23:01> DeltaPackageBuilder: Extracting .\Releases\Codempare-1.0.0-full.nupkg and C:\Users\nikok\source\repos\-courseModul-master\TextGUIModule\bin\Release\Releases\Codempare-2.0.0-full.nupkg into C:\Users\nikok\AppData\Local\SquirrelTemp\tempb
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\8693.ttf not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\CoDEmpare.exe not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\CoDEmpare.exe.config not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\CoDEmpare.pdb not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\CoDEmpare_ExecutionStub.exe not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\EntityFramework.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\EntityFramework.SqlServer.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\Microsoft.Win32.Primitives.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\normalize.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.AppContext.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Collections.Concurrent.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Collections.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Collections.NonGeneric.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Collections.Specialized.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.ComponentModel.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.ComponentModel.EventBasedAsync.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.ComponentModel.Primitives.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.ComponentModel.TypeConverter.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Console.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Data.Common.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Data.SQLite.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Data.SQLite.dll.config not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Data.SQLite.EF6.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Data.SQLite.Linq.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.Contracts.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.Debug.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.FileVersionInfo.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.Process.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.StackTrace.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.TextWriterTraceListener.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.Tools.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.TraceSource.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Diagnostics.Tracing.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Drawing.Primitives.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Dynamic.Runtime.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Globalization.Calendars.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Globalization.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Globalization.Extensions.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.Compression.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.Compression.ZipFile.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.FileSystem.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.FileSystem.DriveInfo.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.FileSystem.Primitives.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.FileSystem.Watcher.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.IsolatedStorage.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.MemoryMappedFiles.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.Pipes.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.IO.UnmanagedMemoryStream.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Linq.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Linq.Expressions.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Linq.Parallel.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Linq.Queryable.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.Http.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.NameResolution.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.NetworkInformation.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.Ping.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.Primitives.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.Requests.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.Security.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.Sockets.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.WebHeaderCollection.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.WebSockets.Client.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Net.WebSockets.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.ObjectModel.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Reflection.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Reflection.Extensions.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Reflection.Primitives.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Resources.Reader.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Resources.ResourceManager.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Resources.Writer.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.CompilerServices.VisualC.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.Extensions.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.Handles.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.InteropServices.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.InteropServices.RuntimeInformation.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.Numerics.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.Serialization.Formatters.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.Serialization.Json.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.Serialization.Primitives.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Runtime.Serialization.Xml.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Security.Claims.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Security.Cryptography.Algorithms.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Security.Cryptography.Csp.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Security.Cryptography.Encoding.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Security.Cryptography.Primitives.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Security.Cryptography.X509Certificates.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Security.Principal.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Security.SecureString.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Text.Encoding.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Text.Encoding.Extensions.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Text.RegularExpressions.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Threading.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Threading.Overlapped.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Threading.Tasks.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Threading.Tasks.Parallel.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Threading.Thread.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Threading.ThreadPool.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Threading.Timer.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.ValueTuple.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Xml.ReaderWriter.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Xml.XDocument.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Xml.XmlDocument.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Xml.XmlSerializer.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Xml.XPath.dll not found in base package, marking as new
+2018-04-30 19:23:07> DeltaPackageBuilder: \lib\net451\System.Xml.XPath.XDocument.dll not found in base package, marking as new
+2018-04-30 19:23:08> Program: Building embedded zip file for Setup.exe

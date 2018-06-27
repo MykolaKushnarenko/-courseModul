@@ -21,20 +21,18 @@ namespace TextGUIModule
     public partial class MainWindow : Window
     {
         private string path = "";
-        private Analitics code;
+        private Analysis code;
         private DataBaseLite db;
         private bool mainCodeIs = true;
         private bool childCodeIs = true;
         private bool searchFileNow = false;
         private bool searchSubmitNow = false;
+        private bool notHistoryEnter = false;
         public MainWindow()
         {
             InitializeComponent();
             db = new DataBaseLite();
-            textCode.FontFamily = new FontFamily("8693.ttf");
-            //textWrite("icons/Test2.cs", textCode);
-            TextWrite("icons/Test4.java", textCode2);
-            code = new Analitics();
+            code = new Analysis();
         }
 
         private void TextWrite(string path, TextBox text)
@@ -51,34 +49,30 @@ namespace TextGUIModule
 
         private void DockPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //page.SelectedIndex = 1;
-            FineFile();
+            page.SelectedIndex = 4;
         }
 
-        private void FineFile()
+        private void FineFile(bool isHist)
         {
-            //string[] allFoundFiles;
-            //using (var fbd = new winForms.FolderBrowserDialog())
-            //{
-            //    winForms.DialogResult result = fbd.ShowDialog();
-
-            //    if (result == winForms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-            //    {
-            //        allFoundFiles = Directory.GetFiles(fbd.SelectedPath, "*.cs", SearchOption.AllDirectories);
-            //        foreach (string file in allFoundFiles)
-            //        {
-            //            string[] a = file.Split('\\');
-            //            FileList.Items.Add(a[a.Length-1]);
-            //        }
-            //    }
-            //}
-
-            List<string> s = db.DescSubm();
-            FileList.Items.Clear();
-            foreach (var desc in s)
+            if (!isHist)
             {
-                ListViewItem item = new ListViewItem {Content = desc};
-                FileList.Items.Add(item);
+                List<string> s = db.DescSubm();
+                FileList.Items.Clear();
+                foreach (var desc in s)
+                {
+                    ListViewItem item = new ListViewItem { Content = desc };
+                    FileList.Items.Add(item);
+                }
+            }
+            else if (isHist)
+            {
+                List<string> s = db.GetListHistory();
+                FileList.Items.Clear();
+                foreach (var desc in s)
+                {
+                    ListViewItem item = new ListViewItem { Content = desc };
+                    FileList.Items.Add(item);
+                }
             }
            
            page.SelectedIndex = 1;
@@ -88,9 +82,9 @@ namespace TextGUIModule
         {
            
             var item = sender as ListViewItem;
-            string content = item.Content.ToString();
-            string[] get = content.Split(new char[] {'|'});
-            if (item != null && item.IsSelected)
+            string content = item?.Content.ToString();
+            string[] get = content?.Split(new char[] {'|'});
+            if (item != null && item.IsSelected && notHistoryEnter)
             {
                 if (mainCodeIs)
                 {
@@ -119,6 +113,8 @@ namespace TextGUIModule
                     mainCodeIs = true;
                     searchSubmitNow = false;
                     Compare();
+                    textCode.ToolTip = db.GetInfoSubm(true);
+                    textCode2.ToolTip = db.GetInfoSubm(false);
                 }
                 page.SelectedIndex = 0;
             }
@@ -180,6 +176,28 @@ namespace TextGUIModule
             }
             db.AddingSubmit(NameBox.Text,BoxDesc.Text, TypeCompiler,path, searchFileNow);
             MessageBox.Show("Complite!", "EvolPras", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (searchFileNow && db.IsNotEnpty())
+            {
+                textCode.Text = db.GetOrignCodeFromId(db.IdMainFileForHist);
+                textCode2.Text = db.GetOrignCodeFromId(db.IdiDenticalFie);
+                db.SetCodeMain(db.IdMainFileForHist, code);
+                db.SetCodeChild(db.IdiDenticalFie, code);
+                Compare();
+                textCode.ToolTip = db.GetInfoSubm(true);
+                textCode2.ToolTip = db.GetInfoSubm(false);
+            }
+
+            if (!db.IsNotEnpty())
+            {
+                page.SelectedIndex = 3;
+            }
+            else
+            {
+                page.SelectedIndex = 0;
+                charpRButton.IsChecked = true;
+                NameBox.Text = "Имя и Фамилия";
+                BoxDesc.Text = "Краткое описание";
+            }
         }
 
         private void CharpRButton_OnClick(object sender, RoutedEventArgs e)
@@ -217,22 +235,16 @@ namespace TextGUIModule
             StatsComple((string)cRButton.Content);
         }
 
-        private void MainCode_OnClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
 
         private void Compare()
         {
-            vFishAlg.Text = code.AlgVarnFish().ToString() + "%";
-            wShinAlg.Text = code.AlgVShiling().ToString() + "%";
-            heskelAlg.Text = code.AlgHeskel().ToString() + "%";
-        }
-        private void Compare_OnClick(object sender, RoutedEventArgs e)
-        {
-            //db.SetCodeMain(1,code);
-            //db.SetCodeChild(1,code);
-            Compare();
+            double resVarnFish = Double.Parse(String.Format("{0:0.##}", code.AlgVarnFish()));
+            double resVShiling = Double.Parse(String.Format("{0:0.##}", code.AlgWShiling()));
+            double resHeskel = Double.Parse(String.Format("{0:0.##}", code.AlgHeskel()));
+            vFishAlg.Text = resVarnFish + "%";
+            wShinAlg.Text = resVShiling + "%";
+            heskelAlg.Text = resHeskel + "%";
+            db.AddingHistiry(resVarnFish, resVShiling, resHeskel);
         }
 
         private void Close_OnClick(object sender, RoutedEventArgs e)
@@ -249,7 +261,24 @@ namespace TextGUIModule
         private void SearshInBD_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             searchSubmitNow = true;
-            FineFile();
+            notHistoryEnter = true;
+            FineFile(false);
+        }
+
+        private void History_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FineFile(true);
+            notHistoryEnter = false;
+        }
+
+        private void DescProgram_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            page.SelectedIndex = 3;
+        }
+
+        private void Titul_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }
