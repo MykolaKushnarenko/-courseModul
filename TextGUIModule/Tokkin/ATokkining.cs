@@ -7,14 +7,14 @@ namespace TextGUIModule
 {
     abstract class ATokkining
     {
-        private string _patternV = null;
-        private string _patternK = null;
-        private string _patternC = null;
-        private string _patternOSec = null;
-        private string _patternO = null;
-        private string _patternOTh = null;
-        private string _patternN = null;
-        private string _patternW = null;
+        private readonly string _patternV = null;
+        private readonly string _patternK = null;
+        private readonly string _patternC = null;
+        private readonly string _patternOSec = null;
+        private readonly string _patternO = null;
+        private readonly string _patternOTh = null;
+        private readonly string _patternN = null;
+        private readonly string _patternW = null;
 
         public ATokkining(string patternV, string patternK,string patternC, string patternOSec, string patternO, string patternOTh, string patternN, string patternW)
         {

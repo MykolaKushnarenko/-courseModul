@@ -238,9 +238,9 @@ namespace TextGUIModule
 
         private void Compare()
         {
-            double resVarnFish = Double.Parse(String.Format("{0:0.##}", code.AlgVarnFish()));
-            double resVShiling = Double.Parse(String.Format("{0:0.##}", code.AlgWShiling()));
-            double resHeskel = Double.Parse(String.Format("{0:0.##}", code.AlgHeskel()));
+            double resVarnFish = Double.Parse(String.Format("{0:0.##}", code.ResultAlgorithm(1)));
+            double resVShiling = Double.Parse(String.Format("{0:0.##}", code.ResultAlgorithm(2)));
+            double resHeskel = Double.Parse(String.Format("{0:0.##}", code.ResultAlgorithm(0)));
             vFishAlg.Text = resVarnFish + "%";
             wShinAlg.Text = resVShiling + "%";
             heskelAlg.Text = resHeskel + "%";

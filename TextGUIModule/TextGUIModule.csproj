@@ -110,8 +110,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Algorithm\AlgorithmFactory.cs" />
+    <Compile Include="Algorithm\Heskel.cs" />
     <Compile Include="Algorithm\IAlgorithm.cs" />
     <Compile Include="Algorithm\LevenshteinDistance.cs" />
+    <Compile Include="Algorithm\WShiling.cs" />
     <Compile Include="Analysis.cs" />
     <Compile Include="NormalTestTwo.cs" />
     <Compile Include="Normalization.cs" />

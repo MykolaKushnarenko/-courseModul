@@ -8,8 +8,9 @@ namespace CoDEmpare.Algorithm
 {
     interface IAlgorithm
     {
-        float _result { get; set; }
-        float CompareRes();
+
+        double Result { get; set; }
+        double CompareRes();
 
     }
 }

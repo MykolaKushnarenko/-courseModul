@@ -315,7 +315,7 @@ namespace TextGUIModule
                     }
                 }
                 search.SetCodeChildFromDB(childCode);
-                resCode.Add(key,((search.AlgHeskel()+search.AlgWShiling()+search.AlgVarnFish())/3));
+                resCode.Add(key,((search.ResultAlgorithm(0)+ search.ResultAlgorithm(1) + search.ResultAlgorithm(2)) /3));
             }
 
             foreach (int Key in resCode.Keys)

@@ -9,7 +9,7 @@ namespace CoDEmpare.Algorithm
     class LevenshteinDistance: IAlgorithm
     {
         
-        public float _result { get; set; }
+        public double Result { get; set; }
         private List<string> _codeMain;
         private List<string> _codeChild;
         public LevenshteinDistance(List<string> main, List<string> child)
@@ -17,10 +17,10 @@ namespace CoDEmpare.Algorithm
             _codeMain = main;
             _codeChild = child;
         }
-        public float CompareRes()
+        public double CompareRes()
         {
-            string oneCodeText = string.Join("", _compliteCodeMain.ToArray());
-            string twoCodeText = string.Join("", _compliteCodeChild.ToArray());
+            string oneCodeText = string.Join("", _codeMain.ToArray());
+            string twoCodeText = string.Join("", _codeChild.ToArray());
             int n = oneCodeText.Length;
             int m = twoCodeText.Length;
             int sum = 0;
@@ -45,9 +45,8 @@ namespace CoDEmpare.Algorithm
 
                 }
             }
-
-            //float s = 100 * (((n + m) - res[m, n]) / n + m);
-            return (1 - ((double)res[m, n] / Math.Max(m, n))) * 100;
+            Result =(1 - ((double)res[m, n] / Math.Max(m, n))) * 100;
+            return Result;
         }
     }
 }
