@@ -276,3 +276,4 @@ C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\TextGUIModu
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\TextGUIModule.csproj.CopyComplete
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare.exe
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare.pdb
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\TextGUIModule.csprojAssemblyReference.cache

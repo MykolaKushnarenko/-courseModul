@@ -23,14 +23,17 @@ namespace CoDEmpare.WinPage
     /// </summary>
     public partial class AddingSubmit : UserControl
     {
-        public Action<DataBaseLite> SwichToResutl;
-        private DataBaseLite _dataBase;
-        private string _path { get; set; }
-        public bool Search { get; set; }
-        public AddingSubmit()
+        private Action<DataBaseLite> _swichToResutl;
+        readonly DataBaseLite _dataBase;
+        private string _path;
+        private bool _search;
+        public AddingSubmit(DataBaseLite data, Action<DataBaseLite> methodResult, bool isSearch)
         {
+           _swichToResutl = methodResult;
+            _dataBase = data;
+            _search = isSearch;
             InitializeComponent();
-            PrintCompilName((string)CsharpLanguage.Content);
+            PrintCompilName(CsharpLanguage.Content.ToString());
         }
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
@@ -41,14 +44,20 @@ namespace CoDEmpare.WinPage
                 case "CsharpLanguage":
                     JavaLanguage.IsChecked = false;
                     CppLanguage.IsChecked = false;
+                    CompilName.Items.Clear();
+                    PrintCompilName(CsharpLanguage.Content.ToString());
                     break;
                 case "JavaLanguage":
                     CsharpLanguage.IsChecked = false;
                     CppLanguage.IsChecked = false;
+                    CompilName.Items.Clear();
+                    PrintCompilName(JavaLanguage.Content.ToString());
                     break;
                 case "CppLanguage":
                     CsharpLanguage.IsChecked = false;
                     JavaLanguage.IsChecked = false;
+                    CompilName.Items.Clear();
+                    PrintCompilName(CppLanguage.Content.ToString());
                     break;
             }
         }
@@ -81,7 +90,7 @@ namespace CoDEmpare.WinPage
             }
         }
 
-        private async void LoadFileToBD_OnClick(object sender, RoutedEventArgs e)
+        private  void LoadFileToBD_OnClick(object sender, RoutedEventArgs e)
         {
             string typeCompiler = (string)CompilName.SelectedItem;
             string lang = "";
@@ -97,11 +106,11 @@ namespace CoDEmpare.WinPage
             {
                 lang = (string)JavaLanguage.Content;
             }
-            await _dataBase.AddingSubmit(NameAuthor.Text, Description.Text, typeCompiler, _path, Search);
-            MessageBox.Show("Complite!", "EvolPras", MessageBoxButton.OK, MessageBoxImage.Information);
-            if (Search && _dataBase.IsNotEnpty())
+            LoadWindow load = new LoadWindow(_dataBase, NameAuthor.Text, Description.Text, typeCompiler, _path, _search);
+            load.ShowDialog();
+            if (_search && _dataBase.IsNotEnpty())
             {
-                SwichToResutl(_dataBase);
+                _swichToResutl(_dataBase);
             }
             else
             {

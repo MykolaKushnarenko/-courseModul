@@ -18,6 +18,7 @@ namespace TextGUIModule
         private int countLine = 0;
         private int idMainFileForHist = -1;
         private int idiDenticalFie = -1;
+        public Analysis Code { get; private set; }
         public int IdMainFileForHist
         {
             get
@@ -49,7 +50,7 @@ namespace TextGUIModule
                 IsNull();
                 conn.Close();
             }
-
+            Code = new Analysis();
         }
 
         public List<string> GetListHistory()
@@ -382,13 +383,13 @@ namespace TextGUIModule
             conn.Close();
             return allDesc;
         }
-        public void SetCodeMain(string tag, Analysis alg)
+        public void SetCodeMain(string tag)
         {
             string tokins = GetTokingCode(tag);
-            alg.SetCodeMainFromDB(tokins);
+            Code.SetCodeMainFromDB(tokins);
 
         }
-        public void SetCodeMain(int id, Analysis alg)
+        public void SetCodeMain(int id)
         {
             string tagSubmit = "";
             conn.Open();
@@ -404,9 +405,9 @@ namespace TextGUIModule
             }
 
             conn.Close();
-            SetCodeMain(tagSubmit, alg);
+            SetCodeMain(tagSubmit);
         }
-        public void SetCodeChild(int id, Analysis alg)
+        public void SetCodeChild(int id)
         {
             string tagSubmit = "";
             conn.Open();
@@ -422,12 +423,12 @@ namespace TextGUIModule
             }
 
             conn.Close();
-            SetCodeChild(tagSubmit, alg);
+            SetCodeChild(tagSubmit);
         }
-        public void SetCodeChild(string tag, Analysis alg)
+        private void SetCodeChild(string tag)
         {
             string tokins = GetTokingCode(tag);
-            alg.SetCodeChildFromDB(tokins);
+            Code.SetCodeChildFromDB(tokins);
 
         }
         private string GetTokingCode(string tag)
@@ -465,7 +466,7 @@ namespace TextGUIModule
             conn.Close();
             return GetOrignCode(tagSubmit);
         }
-        public string GetOrignCode(string tag)
+        private string GetOrignCode(string tag)
         {
             string originCode = "";
             conn.Open();
@@ -485,12 +486,12 @@ namespace TextGUIModule
         /*------------------Code---------------------*/
         private void AddingCode(string path, string lang, string tagOnSumb, bool serachNow)
         {
-            Analysis code = new Analysis();
-            code.RunAnalysis(lang, path);
-            string normaList = code.GetNormalizeCode();
+            
+            Code.RunAnalysis(lang, path);
+            string normaList = Code.GetNormalizeCode();
 
             string origncode = TextWrite(path);
-            List<string> gramsList = code.InserToDB();
+            List<string> gramsList = Code.InserToDB();
             int countGram = gramsList.Count;
             string tag = DateTime.Now.ToString() + countGram.ToString();
             int indexCode = -1;
@@ -571,9 +572,9 @@ namespace TextGUIModule
             using (command = new SQLiteCommand(
                 "insert into File (Name,Ver,Hash,id_Submit, id_Code ) values(@Name,@Ver,@Hash,@id_Submit, @id_Code )", conn))
             {
-                command.Parameters.Add(new SQLiteParameter("@Name", code.FileName(path)));
-                command.Parameters.Add(new SQLiteParameter("@Ver", code.GetVersion(path)));
-                command.Parameters.Add(new SQLiteParameter("@Hash", code.GetHash(path)));
+                command.Parameters.Add(new SQLiteParameter("@Name", Code.FileName(path)));
+                command.Parameters.Add(new SQLiteParameter("@Ver", Code.GetVersion(path)));
+                command.Parameters.Add(new SQLiteParameter("@Hash", Code.GetHash(path)));
                 command.Parameters.Add(new SQLiteParameter("@id_Submit", indexSubm));
                 command.Parameters.Add(new SQLiteParameter("@id_Code", indexCode));
                 command.ExecuteNonQuery();

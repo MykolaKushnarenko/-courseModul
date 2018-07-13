@@ -158,12 +158,7 @@ namespace TextGUIModule
             CloseMenuButton.Visibility = Visibility.Collapsed;
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            GridContentAction.Children.Clear();
-            GridContentAction.Children.Add(new ResultPage());
-        }
-
+        
         private void ListViewMenu_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = ListViewMenu.SelectedIndex;
@@ -171,15 +166,13 @@ namespace TextGUIModule
             {
                 case 0:
                     GridContentAction.Children.Clear();
-                    GridContentAction.Children.Add(new AddingSubmit(){SwichToResutl = Result, Search = false});
+                    GridContentAction.Children.Add(new AddingSubmit(db, Result, false));
                     break;
                 case 1:
                     GridContentAction.Children.Clear();
-                    GridContentAction.Children.Add(new AddingSubmit(){SwichToResutl = Result, Search = true});
+                    GridContentAction.Children.Add(new AddingSubmit(db, Result, true));
                     break;
                 case 2:
-                    GridContentAction.Children.Clear();
-                    GridContentAction.Children.Add(new ResultPage());
                     break;
                 case 3:
                     GridContentAction.Children.Clear();
@@ -195,19 +188,14 @@ namespace TextGUIModule
             GridSelection.Margin = new Thickness(0, ((indexItem * 75)), 0, 0);
         }
 
-        private void Result(DataBaseLite db)
+        private void Result(DataBaseLite data)
         {
-            ResultPage result = new ResultPage()
-            {
-                MainCode = db.GetOrignCodeFromId(db.IdMainFileForHist),
-                ChaildCode = db.GetOrignCodeFromId(db.IdiDenticalFie)
-
-            };
-            
-
+            ResultPage result = new ResultPage(data.GetOrignCodeFromId(data.IdMainFileForHist),
+                data.GetOrignCodeFromId(data.IdiDenticalFie), ref db);
+           
             //textCode.ToolTip = db.GetInfoSubm(true);
             //textCode2.ToolTip = db.GetInfoSubm(false);
-
+            
             GridContentAction.Children.Clear();
             GridContentAction.Children.Add(result);
 

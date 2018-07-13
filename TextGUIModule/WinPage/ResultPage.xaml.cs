@@ -21,36 +21,41 @@ namespace CoDEmpare.WinPage
     /// </summary>
     public partial class ResultPage : UserControl
     {
-        public string MainCode { get; set; } = "";
-        public string ChaildCode { get; set; } = "";
-        public readonly Analysis code;
-        public ResultPage()
+        private string _mainCode { get; set; }
+        private string _chaildCode { get; set; }
+        private DataBaseLite _dataBase;
+        public Analysis codeResult;
+        public ResultPage(string mainCode, string chaildCode,ref DataBaseLite data)
         {
+            _mainCode = mainCode;
+            _chaildCode = chaildCode;
+            _dataBase = data;
             InitializeComponent();
             SetTextBoxes();
+            SetListCompare();
         }
 
         private void SetTextBoxes()
         {
-            MainCodeText.Text = MainCode;
-            ChildCodeText.Text = ChaildCode;
+            MainCodeText.Text = _mainCode;
+            ChildCodeText.Text = _chaildCode;
         }
 
-        public void SetListCompare(ref DataBaseLite db)
+        private void SetListCompare()
         {
-            db.SetCodeMain(db.IdMainFileForHist, code);
-            db.SetCodeChild(db.IdiDenticalFie, code);
-            Compare(ref db);
+            _dataBase.SetCodeMain(_dataBase.IdMainFileForHist);
+            _dataBase.SetCodeChild(_dataBase.IdiDenticalFie);
+            Compare();
         }
-        private void Compare(ref DataBaseLite data)
+        private void Compare()
         {
-            double resVarnFish = Double.Parse(String.Format("{0:0.##}", code.ResultAlgorithm(1)));
-            double resVShiling = Double.Parse(String.Format("{0:0.##}", code.ResultAlgorithm(2)));
-            double resHeskel = Double.Parse(String.Format("{0:0.##}", code.ResultAlgorithm(0)));
+            double resVarnFish = Double.Parse(String.Format("{0:0.##}", _dataBase.Code.ResultAlgorithm(1)));
+            double resVShiling = Double.Parse(String.Format("{0:0.##}", _dataBase.Code.ResultAlgorithm(2)));
+            double resHeskel = Double.Parse(String.Format("{0:0.##}", _dataBase.Code.ResultAlgorithm(0)));
             ResultCompareList.Items.Add("Levenshtein Distance :" + resVarnFish + "%");
             ResultCompareList.Items.Add("WShiling :" + resVShiling + "%");
             ResultCompareList.Items.Add("Heskel :" + resHeskel + "%");
-            data.AddingHistiry(resVarnFish, resVShiling, resHeskel);
+            _dataBase.AddingHistiry(resVarnFish, resVShiling, resHeskel);
         }
     }
 }
