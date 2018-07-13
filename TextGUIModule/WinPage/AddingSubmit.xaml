@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="CoDEmpare.WinPage.AddingSubmit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CoDEmpare.WinPage"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"        
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Label" x:Key="TextLabel">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Impact"/>
+            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <materialDesign:TransitioningContent  x:Name="TransitioningContent" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft , Duration=0:0:0:1}">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20 0 0">
+                <StackPanel Orientation="Vertical" Margin="20" HorizontalAlignment="Left">
+                    <Label Content="Имя фамилмя" Style="{StaticResource TextLabel}" Padding="10"/>
+                    <TextBox x:Name="NameAuthor" Width ="150" TextWrapping="Wrap" />
+                    <Label Content="Краткое описание кода" Style="{StaticResource TextLabel}" Padding="10 50 0 10"/>
+                    <TextBox x:Name="Description" Height="54" Width ="150" TextWrapping="Wrap"/>
+                    <Label Content="Выбор языка" Style="{StaticResource TextLabel}" Padding="10 50 0 20"/>
+                    <StackPanel >
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="C#    " HorizontalAlignment="Left"/>
+                            <ToggleButton x:Name="CsharpLanguage" Content="C#" Click="ButtonBase_OnClick" IsChecked="True" VerticalAlignment="Bottom" Width="100" Height="26"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="JAVA "/>
+                            <ToggleButton x:Name="JavaLanguage" Content="JAVA" Click="ButtonBase_OnClick" VerticalAlignment="Bottom" Width="100" Height="26"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="C++ " HorizontalAlignment="Left"/>
+                            <ToggleButton x:Name="CppLanguage" Content="C++ " Click="ButtonBase_OnClick" VerticalAlignment="Bottom" Width="100" Height="26"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 40">
+                    <Button x:Name="AddFile"  Content="Выбрать фаил" Margin="0 0 0 10" Click="AddFile_OnClick"/>
+                    <Button x:Name="LoadFileToBD" Content="Загрузить" Visibility="Hidden" Click="LoadFileToBD_OnClick"/>
+                </StackPanel>
+                <StackPanel Margin="0 20 0 0">
+                    <Label Content="Выбор компилятора" Style="{StaticResource TextLabel}" Margin="0 0 0 30 "/>
+                    <ListView x:Name="CompilName" Width="350"/>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</UserControl>

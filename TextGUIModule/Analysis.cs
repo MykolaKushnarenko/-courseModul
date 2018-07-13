@@ -10,7 +10,7 @@ using CoDEmpare.Tokkin;
 
 namespace TextGUIModule
 {
-    class Analysis
+    public class Analysis
     {
         private Normalization _normalize;
         private List<string> _compliteCodeMain = new List<string>();

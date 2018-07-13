@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace TextGUIModule
 {
-    class DataBaseLite
+    public class DataBaseLite
     {
         private const string pathSQL = @"Data\Compare.db";
         private SQLiteConnection conn;
@@ -587,89 +587,94 @@ namespace TextGUIModule
         }
         /*------------------Code---------------------*/
         /*------------------Submit---------------------*/
-        public void AddingSubmit(string name, string desc,string compolType, string path, bool serachNow)
+        public Task<bool> AddingSubmit(string name, string desc,string compolType, string path, bool serachNow)
         {
-            conn.Open();
-            string language = "";
-            int amount = 0;
-            int indexUser = 0;
-            int indexCompil = 0;
-            string tahSubmit = "";
-            try
+            return Task.Run(() =>
             {
-                using (command = new SQLiteCommand(
-                      "SELECT COUNT(id) from User where Name like @name", conn))
-                {
-                    command.Parameters.Add(new SQLiteParameter("@name",name));
-                    using (IDataReader r = command.ExecuteReader())
-                    {
-                        if (r.Read())
-                            amount = r.GetInt32(0);
-                    }
-                }
-                
-                if (amount == 0)
+                conn.Open();
+                string language = "";
+                int amount = 0;
+                int indexUser = 0;
+                int indexCompil = 0;
+                string tahSubmit = "";
+                try
                 {
                     using (command = new SQLiteCommand(
-                           "insert into User (Name) values(@Name)", conn))
+                          "SELECT COUNT(id) from User where Name like @name", conn))
                     {
-                        command.Parameters.Add(new SQLiteParameter("@Name",name));
+                        command.Parameters.Add(new SQLiteParameter("@name", name));
+                        using (IDataReader r = command.ExecuteReader())
+                        {
+                            if (r.Read())
+                                amount = r.GetInt32(0);
+                        }
+                    }
+
+                    if (amount == 0)
+                    {
+                        using (command = new SQLiteCommand(
+                               "insert into User (Name) values(@Name)", conn))
+                        {
+                            command.Parameters.Add(new SQLiteParameter("@Name", name));
+                            command.ExecuteNonQuery();
+                        }
+                    }
+
+                    using (command = new SQLiteCommand(
+                        "SELECT id from User where Name like @name", conn))
+                    {
+                        command.Parameters.Add(new SQLiteParameter("@name", name));
+                        using (IDataReader r = command.ExecuteReader())
+                        {
+                            if (r.Read())
+                                indexUser = r.GetInt32(0);
+                        }
+                    }
+                    using (command = new SQLiteCommand(
+                        "SELECT id from Compiler where CompilerType like @copmType", conn))
+                    {
+                        command.Parameters.Add(new SQLiteParameter("@copmType", compolType));
+                        using (IDataReader r = command.ExecuteReader())
+                        {
+                            if (r.Read())
+                                indexCompil = r.GetInt32(0);
+                        }
+                    }
+                    using (command = new SQLiteCommand(
+                        "insert into Submit (Tag, description, DateTimeSend, id_Compiler, id_User) values(@Tag,@dect,@Data,@indComp,@indUse)", conn))
+                    {
+                        string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        tahSubmit = name + time;
+                        command.Parameters.Add(new SQLiteParameter("@dect", desc));
+                        command.Parameters.Add(new SQLiteParameter("@Data", time));
+                        command.Parameters.Add(new SQLiteParameter("@indComp", indexCompil));
+                        command.Parameters.Add(new SQLiteParameter("@indUse", indexUser));
+                        command.Parameters.Add(new SQLiteParameter("@Tag", tahSubmit));
                         command.ExecuteNonQuery();
                     }
-                }
+                    using (command = new SQLiteCommand(
+                        "SELECT denomination from Language join Compiler on Compiler.id_language = Language.id where CompilerType like @copmType", conn))
+                    {
+                        command.Parameters.Add(new SQLiteParameter("@copmType", compolType));
+                        using (IDataReader r = command.ExecuteReader())
+                        {
+                            if (r.Read())
+                                language = r.GetString(0);
+                        }
+                    }
 
-                using (command = new SQLiteCommand(
-                    "SELECT id from User where Name like @name", conn))
-                {
-                    command.Parameters.Add(new SQLiteParameter("@name", name));
-                    using (IDataReader r = command.ExecuteReader())
-                    {
-                        if (r.Read())
-                            indexUser = r.GetInt32(0);
-                    }
                 }
-                using (command = new SQLiteCommand(
-                    "SELECT id from Compiler where CompilerType like @copmType", conn))
-                {
-                    command.Parameters.Add(new SQLiteParameter("@copmType", compolType));
-                    using (IDataReader r = command.ExecuteReader())
-                    {
-                        if (r.Read())
-                            indexCompil = r.GetInt32(0);
-                    }
-                }
-                using (command = new SQLiteCommand(
-                    "insert into Submit (Tag, description, DateTimeSend, id_Compiler, id_User) values(@Tag,@dect,@Data,@indComp,@indUse)", conn))
-                {
-                    string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    tahSubmit = name + time;
-                    command.Parameters.Add(new SQLiteParameter("@dect", desc));
-                    command.Parameters.Add(new SQLiteParameter("@Data", time));
-                    command.Parameters.Add(new SQLiteParameter("@indComp", indexCompil));
-                    command.Parameters.Add(new SQLiteParameter("@indUse", indexUser));
-                    command.Parameters.Add(new SQLiteParameter("@Tag", tahSubmit));
-                    command.ExecuteNonQuery();
-                }
-                using (command = new SQLiteCommand(
-                    "SELECT denomination from Language join Compiler on Compiler.id_language = Language.id where CompilerType like @copmType", conn))
-                {
-                    command.Parameters.Add(new SQLiteParameter("@copmType", compolType));
-                    using (IDataReader r = command.ExecuteReader())
-                    {
-                        if (r.Read())
-                            language = r.GetString(0);
-                    }
-                }
-
-            }
-            catch (SQLiteException ex)
+                catch (SQLiteException ex)
                 {
                     ProntError(ex.Message);
                 }
 
+
+                AddingCode(path, language, tahSubmit, serachNow);
+                conn.Close();
+                return true;
+            });
             
-            AddingCode(path,language, tahSubmit, serachNow);
-            conn.Close();
         }
 
         public List<string> GetCompile(string lang)
