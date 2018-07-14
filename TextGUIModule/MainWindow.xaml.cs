@@ -45,7 +45,7 @@ namespace TextGUIModule
         {
             OpemMenuButton.Visibility = Visibility.Visible;
             CloseMenuButton.Visibility = Visibility.Collapsed;
-            UserPhoto.Visibility = Visibility.Hidden;
+            UserPhoto.Visibility = Visibility.Collapsed;
         }
 
         
@@ -107,6 +107,12 @@ namespace TextGUIModule
         private void Title_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void HelpButt_OnClick(object sender, RoutedEventArgs e)
+        {
+            GridContentAction.Children.Clear();
+            GridContentAction.Children.Add(new HelpPage());
         }
     }
 }

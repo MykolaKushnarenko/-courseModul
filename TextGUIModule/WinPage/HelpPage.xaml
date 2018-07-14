@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="CoDEmpare.WinPage.HelpPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CoDEmpare.WinPage"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"        
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="820">
+    <UserControl.Resources>
+        <Style TargetType="Label" x:Key="TextLabel">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Impact"/>
+            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <materialDesign:TransitioningContent  x:Name="TransitioningContent" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight , Duration=0:0:0:1}">
+            <StackPanel HorizontalAlignment="Center"  Width="810" Margin="10,90,0,-0.4">
+                <TreeView>
+                    <TreeViewItem Header="Description">
+                        <TreeViewItem Header="Info">
+                            <StackPanel>
+                                <TextBlock Text="CODEMPARE – мощный бесплатный модуль для выявления плагиата в программных кодов.
+                                    Эта программа дает возможность для быстрого поиска и нахождения идентичных исходников, а также добавления в общию базу
+                                    данных, для дальнейшего лучшего поиска. Бесплатная, новая версия CoDEmpare поддерживает Windows 7 и дает
+                                    нам возможность работать со следующими форматами:cpp, java, cs, h, c.
+                                    Можно смело сказать о том что данная программа просто необходимость для преподователей
+                                    высшых учебных учереждений, которые хотят скоротить время на проверки лабораторных работ." Width="600" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Comunity">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="CodeGreaterThan"/>
+                                    <TextBlock Text="Teacher"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="CodeGreaterThan"/>
+                                    <TextBlock Text="Laboratory Assistant"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="CodeGreaterThan"/>
+                                    <TextBlock Text="Students"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="CodeGreaterThan"/>
+                                    <TextBlock Text="School boy"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="CodeGreaterThan"/>
+                                    <TextBlock Text="People"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Authors">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CodeGreaterThan"/>
+                                <TextBlock Text="Nicholas Kushnaremko"></TextBlock>
+                            </StackPanel>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Brief instruction">
+                        <TreeViewItem Header="Red"></TreeViewItem>
+                        <TreeViewItem Header="Orange"></TreeViewItem>
+                        <TreeViewItem Header="Green"></TreeViewItem>
+                    </TreeViewItem>
+                </TreeView>
+
+            </StackPanel>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</UserControl>

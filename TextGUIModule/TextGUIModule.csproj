@@ -152,6 +152,9 @@
     <Compile Include="WinPage\DataBasesSubmitList.xaml.cs">
       <DependentUpon>DataBasesSubmitList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WinPage\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WinPage\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
     </Compile>
@@ -184,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WinPage\DataBasesSubmitList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WinPage\HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -53,7 +53,7 @@
                     <StackPanel Width="150">
                         <Button Content="Account"/>
                         <Button Content="Setting"/>
-                        <Button Content="Help"/>
+                        <Button x:Name="HelpButt" Content="Help" Click="HelpButt_OnClick" />
                         <Separator/>
                         <Button x:Name="loOutBut" Content="Logout" Click="LoOutBut_OnClick"/>
                     </StackPanel>
@@ -73,7 +73,13 @@
                     <Button x:Name="OpemMenuButton" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="OpemMenuButton_OnClick" >
                         <materialDesign:PackIcon Foreground="BlueViolet" Kind="Menu" Width="25" Height="25"/>
                     </Button>
-                    <Image x:Name="UserPhoto" Width="70" Height="70" Source="Мангеке_Шаринган_Саске.ico" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" Visibility="Hidden"/>
+                    <StackPanel x:Name="UserPhoto" Margin="20" Visibility="Collapsed">
+                        <materialDesign:Card UniformCornerRadius="80"  Height="85" Width="85" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <Image Width="70" Height="70" Source="Мангеке_Шаринган_Саске.ico" />
+                        </materialDesign:Card>
+                        <TextBlock Text="Nicholas Kushnarenko" FontFamily="/CoDEmpare;component/Fonts/#HACKED" FontSize="16" Margin="0 10 0 0"/>
+                    </StackPanel>
+                    
                 </Grid>
             </StackPanel>
             <Grid Margin="0 150 0 0" HorizontalAlignment="Left" Width="200">
