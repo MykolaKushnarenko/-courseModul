@@ -13,7 +13,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="820">
     <UserControl.Resources>
         <Style TargetType="Label" x:Key="TextLabel">
             <Setter Property="FontSize" Value="14"/>
@@ -24,15 +24,10 @@
     </UserControl.Resources>
     <Grid>
         <materialDesign:TransitioningContent  x:Name="TransitioningContent" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft , Duration=0:0:0:1}">
-            <StackPanel HorizontalAlignment="Center"  Width="600" Margin="0 90 0 0">
+            <StackPanel HorizontalAlignment="Center"  Width="810" Margin="10,90,0,-0.4">
                 <Label Content="История" Style="{StaticResource TextLabel}" Margin="0 0 0 30"/>
-                <ListView x:Name="FileListCompil" Margin="4" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="600" FontFamily="Impact" >
-                    <TextBlock>LG Nexus 5X</TextBlock>
-                    <TextBlock>Huawei Nexus 6P</TextBlock>
-                    <TextBlock>iPhone 6S</TextBlock>
-                    <TextBlock>iPhone 6S Plus</TextBlock>
-                    <TextBlock>Аsus Zenphone 2</TextBlock>
-                    <TextBlock>Microsoft Lumia 950</TextBlock>
+                <ListView x:Name="FileListCompil" Margin="4" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="800" FontFamily="Impact" >
+
                 </ListView>
             </StackPanel>
         </materialDesign:TransitioningContent>

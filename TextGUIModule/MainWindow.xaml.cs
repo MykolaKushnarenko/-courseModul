@@ -21,124 +21,12 @@ namespace TextGUIModule
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string path = "";
-        private Analysis code;
-        private DataBaseLite db;
-        private bool mainCodeIs = true;
-        private bool childCodeIs = true;
-        private bool searchFileNow = false;
-        private bool searchSubmitNow = false;
-        private bool notHistoryEnter = false;
+        private DataBaseLite _db;
         public MainWindow()
         {
             InitializeComponent();
-            db = new DataBaseLite();
-            code = new Analysis();
-        }
-
-        private void TextWrite(string path, TextBox text)
-        {
-            using (StreamReader rw = new StreamReader(path))
-            {
-                while (!rw.EndOfStream)
-                {
-                    text.Text += rw.ReadLine();
-                    text.Text += "\r\n";
-                }
-            }
-        }
-
-        //private void FineFile(bool isHist)
-        //{
-        //    if (!isHist)
-        //    {
-        //        List<string> s = db.DescSubm();
-        //        FileList.Items.Clear();
-        //        foreach (var desc in s)
-        //        {
-        //            ListViewItem item = new ListViewItem { Content = desc };
-        //            FileList.Items.Add(item);
-        //        }
-        //    }
-           
-        //}
-
-        //private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-           
-        //    var item = sender as ListViewItem;
-        //    string content = item?.Content.ToString();
-        //    string[] get = content?.Split(new char[] {'|'});
-        //    if (item != null && item.IsSelected && notHistoryEnter)
-        //    {
-        //        if (mainCodeIs)
-        //        {
-
-        //            textCode.Text = db.GetOrignCode(get[get.Length - 1]);
-        //            db.SetCodeMain(get[get.Length - 1], code);
-        //            mainCodeIs = false;
-        //            childCodeIs = true;
-        //        }
-        //        else if (childCodeIs)
-        //        {
-
-        //                textCode2.Text = db.GetOrignCode(get[get.Length - 1]);
-        //                db.SetCodeChild(get[get.Length - 1], code);
-        //                childCodeIs = false;
-        //                mainCodeIs = true;
-                    
-        //        }
-        //        if (searchSubmitNow)
-        //        {
-
-        //            db.SearchIn(get[get.Length - 1]);
-        //            textCode2.Text = db.GetOrignCodeFromId(db.IdiDenticalFie);
-        //            db.SetCodeChild(db.IdiDenticalFie, code);
-        //            childCodeIs = false;
-        //            mainCodeIs = true;
-        //            searchSubmitNow = false;
-        //            Compare();
-        //            textCode.ToolTip = db.GetInfoSubm(true);
-        //            textCode2.ToolTip = db.GetInfoSubm(false);
-        //        }
-        //        page.SelectedIndex = 0;
-        //    }
-        //}
-
-        
-
-        
-
-        
-
-        
-
-        private void Close_OnClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        //private void SearshInBD_OnMouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    searchSubmitNow = true;
-        //    notHistoryEnter = true;
-        //    FineFile(false);
-        //}
-
-        //private void History_OnMouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    FineFile(true);
-        //    notHistoryEnter = false;
-        //}
-
-        private void DescProgram_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-           
-        }
-
-        private void Titul_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
+            _db = new DataBaseLite();
+            GridContentAction.Children.Add(new AddingSubmit(_db, Result, false));
         }
 
         private void LoOutBut_OnClick(object sender, RoutedEventArgs e)
@@ -150,12 +38,14 @@ namespace TextGUIModule
         {
             OpemMenuButton.Visibility = Visibility.Collapsed;
             CloseMenuButton.Visibility = Visibility.Visible;
+            UserPhoto.Visibility = Visibility.Visible;
         }
 
         private void CloseMenuButton_OnClick(object sender, RoutedEventArgs e)
         {
             OpemMenuButton.Visibility = Visibility.Visible;
             CloseMenuButton.Visibility = Visibility.Collapsed;
+            UserPhoto.Visibility = Visibility.Hidden;
         }
 
         
@@ -166,17 +56,19 @@ namespace TextGUIModule
             {
                 case 0:
                     GridContentAction.Children.Clear();
-                    GridContentAction.Children.Add(new AddingSubmit(db, Result, false));
+                    GridContentAction.Children.Add(new AddingSubmit(_db, Result, false));
                     break;
                 case 1:
                     GridContentAction.Children.Clear();
-                    GridContentAction.Children.Add(new AddingSubmit(db, Result, true));
+                    GridContentAction.Children.Add(new AddingSubmit(_db, Result, true));
                     break;
                 case 2:
+                    GridContentAction.Children.Clear();
+                    GridContentAction.Children.Add(new DataBasesSubmitList(_db, Result));
                     break;
                 case 3:
                     GridContentAction.Children.Clear();
-                    GridContentAction.Children.Add(new HistoryPage());
+                    GridContentAction.Children.Add(new HistoryPage(_db));
                     break;
             }
             MoveOnSecectItem(index);
@@ -188,17 +80,33 @@ namespace TextGUIModule
             GridSelection.Margin = new Thickness(0, ((indexItem * 75)), 0, 0);
         }
 
-        private void Result(DataBaseLite data)
+        private void Result(DataBaseLite data, bool compareFromListSubmit)
         {
-            ResultPage result = new ResultPage(data.GetOrignCodeFromId(data.IdMainFileForHist),
-                data.GetOrignCodeFromId(data.IdiDenticalFie), ref db);
-           
+            ResultPage result;
+            if (!compareFromListSubmit)
+            {
+                result = new ResultPage(data.GetOrignCodeFromId(data.IdMainFileForHist),
+                    data.GetOrignCodeFromId(data.IdiDenticalFie), ref _db);
+            }
+            else
+            {
+                result = new ResultPage(data.GetOrignCodeFromId(data.IdMainFileForHist),
+                    data.GetOrignCodeFromId(data.IdiDenticalFie), ref _db);
+            }
+            
+
+
             //textCode.ToolTip = db.GetInfoSubm(true);
             //textCode2.ToolTip = db.GetInfoSubm(false);
-            
+
             GridContentAction.Children.Clear();
             GridContentAction.Children.Add(result);
 
+        }
+
+        private void Title_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

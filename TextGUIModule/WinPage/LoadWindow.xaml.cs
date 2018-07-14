@@ -20,27 +20,27 @@ namespace CoDEmpare.WinPage
     /// </summary>
     public partial class LoadWindow : Window
     {
-        private readonly DataBaseLite DataBase;
-        private readonly string Name;
-        private readonly string Description;
-        private readonly string TypeCompile;
-        private readonly string Path;
-        private readonly bool IsSearch;
+        private readonly DataBaseLite _dataBase;
+        private readonly string _name;
+        private readonly string _description;
+        private readonly string _typeCompile;
+        private readonly string _path;
+        private readonly bool _isSearch;
         public LoadWindow(DataBaseLite data, string name, string description, string type, string path, bool isSearch)
         {
             InitializeComponent();
-            DataBase = data;
-            Name = name;
-            Description = description;
-            TypeCompile = type;
-            Path = path;
-            IsSearch = isSearch;
+            _dataBase = data;
+            _name = name;
+            _description = description;
+            _typeCompile = type;
+            _path = path;
+            _isSearch = isSearch;
             Load();
         }
 
         private async void Load()
         {
-            await DataBase.AddingSubmit(Name, Description, TypeCompile, Path, IsSearch);
+            await _dataBase.AddingSubmit(_name, _description, _typeCompile, _path, _isSearch);
             this.Close();
         }
     }

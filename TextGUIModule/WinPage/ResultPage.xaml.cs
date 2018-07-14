@@ -21,10 +21,9 @@ namespace CoDEmpare.WinPage
     /// </summary>
     public partial class ResultPage : UserControl
     {
-        private string _mainCode { get; set; }
-        private string _chaildCode { get; set; }
-        private DataBaseLite _dataBase;
-        public Analysis codeResult;
+        private readonly string _mainCode;
+        private readonly string _chaildCode;
+        private readonly DataBaseLite _dataBase;
         public ResultPage(string mainCode, string chaildCode,ref DataBaseLite data)
         {
             _mainCode = mainCode;

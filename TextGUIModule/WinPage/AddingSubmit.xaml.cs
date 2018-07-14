@@ -23,11 +23,11 @@ namespace CoDEmpare.WinPage
     /// </summary>
     public partial class AddingSubmit : UserControl
     {
-        private Action<DataBaseLite> _swichToResutl;
+        private Action<DataBaseLite, bool> _swichToResutl;
         readonly DataBaseLite _dataBase;
         private string _path;
         private bool _search;
-        public AddingSubmit(DataBaseLite data, Action<DataBaseLite> methodResult, bool isSearch)
+        public AddingSubmit(DataBaseLite data, Action<DataBaseLite, bool> methodResult, bool isSearch)
         {
            _swichToResutl = methodResult;
             _dataBase = data;
@@ -110,7 +110,7 @@ namespace CoDEmpare.WinPage
             load.ShowDialog();
             if (_search && _dataBase.IsNotEnpty())
             {
-                _swichToResutl(_dataBase);
+                _swichToResutl(_dataBase, false);
             }
             else
             {

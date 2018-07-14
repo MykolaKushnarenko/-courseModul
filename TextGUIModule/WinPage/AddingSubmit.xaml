@@ -12,47 +12,45 @@
              TextOptions.TextRenderingMode="Auto"        
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignWidth="800" Height="462">
     <UserControl.Resources>
         <Style TargetType="Label" x:Key="TextLabel">
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontFamily" Value="Impact"/>
             <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
             <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
         </Style>
     </UserControl.Resources>
     <Grid>
-        <materialDesign:TransitioningContent  x:Name="TransitioningContent" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft , Duration=0:0:0:1}">
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 20 0 0">
+        <materialDesign:TransitioningContent  x:Name="TransitioningContent" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft , Duration=0:0:0:1}" Margin="0,0,0,-15.6">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="45,20,45,10.2">
                 <StackPanel Orientation="Vertical" Margin="20" HorizontalAlignment="Left">
                     <Label Content="Имя фамилмя" Style="{StaticResource TextLabel}" Padding="10"/>
-                    <TextBox x:Name="NameAuthor" Width ="150" TextWrapping="Wrap" />
+                    <TextBox x:Name="NameAuthor" MaxHeight="100" Width ="185" TextWrapping="Wrap" Height="40" />
                     <Label Content="Краткое описание кода" Style="{StaticResource TextLabel}" Padding="10 50 0 10"/>
-                    <TextBox x:Name="Description" Height="54" Width ="150" TextWrapping="Wrap"/>
+                    <TextBox x:Name="Description" Height="54" Width ="187" TextWrapping="Wrap"/>
                     <Label Content="Выбор языка" Style="{StaticResource TextLabel}" Padding="10 50 0 20"/>
-                    <StackPanel >
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="C#    " HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal" >
+                        <StackPanel Orientation="Vertical" Height="99">
+                            <Label Content="C#" Style="{StaticResource TextLabel}"/>
+                            <Label Content="JAVA" Style="{StaticResource TextLabel}"/>
+                            <Label Content="C++" Style="{StaticResource TextLabel}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
                             <ToggleButton x:Name="CsharpLanguage" Content="C#" Click="ButtonBase_OnClick" IsChecked="True" VerticalAlignment="Bottom" Width="100" Height="26"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="JAVA "/>
-                            <ToggleButton x:Name="JavaLanguage" Content="JAVA" Click="ButtonBase_OnClick" VerticalAlignment="Bottom" Width="100" Height="26"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="C++ " HorizontalAlignment="Left"/>
+                            <ToggleButton x:Name="JavaLanguage" Content="JAVA" Click="ButtonBase_OnClick" VerticalAlignment="Bottom" Width="100" Height="26" Margin="0 10 0 5"/>
                             <ToggleButton x:Name="CppLanguage" Content="C++ " Click="ButtonBase_OnClick" VerticalAlignment="Bottom" Width="100" Height="26"/>
                         </StackPanel>
+
                     </StackPanel>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 40">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Height="81">
                     <Button x:Name="AddFile"  Content="Выбрать фаил" Margin="0 0 0 10" Click="AddFile_OnClick"/>
                     <Button x:Name="LoadFileToBD" Content="Загрузить" Visibility="Hidden" Click="LoadFileToBD_OnClick"/>
                 </StackPanel>
                 <StackPanel Margin="0 20 0 0">
                     <Label Content="Выбор компилятора" Style="{StaticResource TextLabel}" Margin="0 0 0 30 "/>
-                    <ListView x:Name="CompilName" Width="350"/>
+                    <ListView x:Name="CompilName" Width="350" FontSize="14"/>
                 </StackPanel>
             </StackPanel>
         </materialDesign:TransitioningContent>

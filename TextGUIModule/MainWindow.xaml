@@ -45,8 +45,8 @@
         </EventTrigger>
     </Window.Triggers>
     <Grid >
-        <Grid Height="50" VerticalAlignment="Top" Background="#FF4D0080">
-            <TextBlock Text="CoDepare" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
+        <Grid x:Name="Title" Height="50" VerticalAlignment="Top" Background="#FF4D0080" MouseLeftButtonDown="Title_OnMouseLeftButtonDown">
+            <TextBlock Text="CoDempare" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontFamily="/CoDEmpare;component/Fonts/#HACKED"/>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
 
                 <materialDesign:PopupBox  Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
@@ -73,6 +73,7 @@
                     <Button x:Name="OpemMenuButton" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="OpemMenuButton_OnClick" >
                         <materialDesign:PackIcon Foreground="BlueViolet" Kind="Menu" Width="25" Height="25"/>
                     </Button>
+                    <Image x:Name="UserPhoto" Width="70" Height="70" Source="Мангеке_Шаринган_Саске.ico" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" Visibility="Hidden"/>
                 </Grid>
             </StackPanel>
             <Grid Margin="0 150 0 0" HorizontalAlignment="Left" Width="200">
@@ -89,19 +90,19 @@
                     <ListViewItem Height="75" Padding="0 10 10 10">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="DatabaseSearch" Width="55" Height="55"/>
-                            <TextBlock Text="Добавить файл" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Добавить и найти" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="75" Padding="0 10 10 10">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Database" Width="55" Height="55"/>
-                            <TextBlock Text="Добавить файл" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Поиск с базы" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="75" Padding="0 10 10 10">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="History" Width="55" Height="55"/>
-                            <TextBlock Text="Добавить файл" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Text="История" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

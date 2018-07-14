@@ -22,14 +22,15 @@ namespace CoDEmpare.WinPage
     public partial class HistoryPage : UserControl
     {
         private DataBaseLite _dataBase;
-        public HistoryPage()
+        public HistoryPage(DataBaseLite data)
         {
+            _dataBase = data;
             InitializeComponent();
+            UpdateHistoryList();
         }
 
         private void UpdateHistoryList()
         {
-            _dataBase = new DataBaseLite();
             List<string> listHistory = _dataBase.GetListHistory();
             FileListCompil.Items.Clear();
             foreach (var desc in listHistory)

@@ -223,16 +223,22 @@ C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\TextGUIModule
 C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\TextGUIModule.csproj.CopyComplete
 C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\CoDEmpare.exe
 C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\CoDEmpare.pdb
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\MainWindow.baml
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\MainWindow.g.cs
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\AddingSubmit.g.cs
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\ChooseAndCompare.g.cs
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\HistoryPage.g.cs
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\LoadWindow.g.cs
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\ResultPage.g.cs
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\App.g.cs
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare_MarkupCompile.cache
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare_MarkupCompile.lref
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\bin\Debug\MaterialDesignColors.dll
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\AddingSubmit.g.cs
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\ChooseAndCompare.g.cs
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\HistoryPage.g.cs
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\LoadWindow.g.cs
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\ResultPage.g.cs
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\CoDEmpare_MarkupCompile.lref
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\App.baml
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\AddingSubmit.baml
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\ChooseAndCompare.baml
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\HistoryPage.baml
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\LoadWindow.baml
+C:\Users\nikok\Desktop\-courseModul-master\TextGUIModule\obj\Debug\WinPage\ResultPage.baml
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\bin\Debug\CoDEmpare.exe.config
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\bin\Debug\CoDEmpare.exe
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\bin\Debug\CoDEmpare.pdb
@@ -263,9 +269,21 @@ C:\Users\nikok\Desktop\Новая папка\TextGUIModule\bin\Debug\Splat.pdb
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\bin\Debug\Squirrel.pdb
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\bin\Debug\System.Data.SQLite.xml
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\MainWindow.baml
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\MainWindow.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\AddingSubmit.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\ChooseAndCompare.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\DataBasesSubmitList.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\HistoryPage.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\LoadWindow.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\ResultPage.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\App.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare_MarkupCompile.cache
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare_MarkupCompile.lref
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\App.baml
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\AddingSubmit.baml
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\ChooseAndCompare.baml
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\DataBasesSubmitList.baml
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\HistoryPage.baml
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\LoadWindow.baml
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\ResultPage.baml
@@ -276,4 +294,3 @@ C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\TextGUIModu
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\TextGUIModule.csproj.CopyComplete
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare.exe
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare.pdb
-C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\TextGUIModule.csprojAssemblyReference.cache

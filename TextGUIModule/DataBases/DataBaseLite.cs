@@ -383,7 +383,7 @@ namespace TextGUIModule
             conn.Close();
             return allDesc;
         }
-        public void SetCodeMain(string tag)
+        private void SetCodeMain(string tag)
         {
             string tokins = GetTokingCode(tag);
             Code.SetCodeMainFromDB(tokins);
