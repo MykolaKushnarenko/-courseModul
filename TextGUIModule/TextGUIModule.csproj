@@ -146,6 +146,9 @@
     <Compile Include="WinPage\AddingSubmit.xaml.cs">
       <DependentUpon>AddingSubmit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WinPage\AuthorizationWindow.xaml.cs">
+      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WinPage\ChooseAndCompare.xaml.cs">
       <DependentUpon>ChooseAndCompare.xaml</DependentUpon>
     </Compile>
@@ -179,6 +182,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="WinPage\AddingSubmit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WinPage\AuthorizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -27,6 +27,7 @@ namespace TextGUIModule
             InitializeComponent();
             _db = new DataBaseLite();
             GridContentAction.Children.Add(new AddingSubmit(_db, Result, false));
+            
         }
 
         private void LoOutBut_OnClick(object sender, RoutedEventArgs e)

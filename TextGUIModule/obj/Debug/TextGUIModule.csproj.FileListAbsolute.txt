@@ -297,3 +297,5 @@ C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\CoDEmpare.p
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\TextGUIModule.csprojAssemblyReference.cache
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\HelpPage.g.cs
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\HelpPage.baml
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\AuthorizationWindow.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\AuthorizationWindow.baml

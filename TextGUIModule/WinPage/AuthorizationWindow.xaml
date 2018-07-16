@@ -1,0 +1,36 @@
+﻿<Window x:Class="CoDEmpare.WinPage.AuthorizationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CoDEmpare.WinPage"
+        mc:Ignorable="d"
+        Title="Login" Height="500" Width="320" ResizeMode="NoResize" WindowStyle="None">
+    <Grid>
+        <Rectangle Height="280" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF801CE8"/>
+                    <GradientStop Color="#FF6D268A" Offset="1"/>
+                    <GradientStop Color="#FF67288B" Offset="0.5"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <materialDesign:PackIcon Foreground="WhiteSmoke" Kind="HomeCircle" Height="100" Width="100" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="20"/>
+        <Rectangle Width="280" Height="240" Fill="White" VerticalAlignment="Bottom" Margin="0,100" RadiusY="15" RadiusX="15">
+            <Rectangle.Effect>
+                <DropShadowEffect Color="#FFBBBBBB" Direction="0" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <Grid Width="280" Height="240" VerticalAlignment="Bottom" Margin="0,100">
+            <TextBlock Text="LOGIN" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Foreground="Gray" FontSize="18"/>
+            <StackPanel VerticalAlignment="Center" Margin="10">
+                <TextBox materialDesign:HintAssist.Hint="EMAIL" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="0,10"/>
+                <PasswordBox materialDesign:HintAssist.Hint="SENHA" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="0,10"/>
+            </StackPanel>
+            <Button VerticalAlignment="Bottom" Width="150" Margin="0 20 10 -15" Content="LOGIN" Background="#FF9722D1" BorderBrush="{x:Null}" />
+                
+        </Grid>
+    </Grid>
+</Window>
