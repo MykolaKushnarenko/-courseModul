@@ -31,7 +31,7 @@
             </StackPanel>
             <Button x:Name="LoginButton" VerticalAlignment="Bottom" Width="150" Margin="0 20 0 -15" Content="LOGIN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" />
             </Grid>
-        <Button x:Name="SinglInButtn" VerticalAlignment="Bottom"  Width="100" Height="25" Margin="0,0,0,50" Content="SINGL IN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" />
+        <Button x:Name="SinglInButtn" VerticalAlignment="Bottom"  Width="100" Height="25" Margin="0,0,0,50" Content="SINGL IN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" Click="SinglInButtn_OnClick" />
         <Button x:Name="SkipButton" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="30" Margin="5" Content="Trial" Foreground="DarkGray" Background="{x:Null}" BorderBrush="{x:Null}" Click="SkipButton_OnClick"/>
     </Grid>
 </Window>

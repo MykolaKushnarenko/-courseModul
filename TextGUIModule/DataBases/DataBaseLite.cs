@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Animation;
 
 namespace TextGUIModule
 {
@@ -728,6 +729,42 @@ namespace TextGUIModule
             
         }
         /*------------Grams---------------*/
+        /*------------Account---------------*/
+        public void RegistsAccount(string name, string email, string password)
+        {
+            int idAccount = 0;
+            conn.Open();
+            using (command = new SQLiteCommand("Insert into Account(password,email)" +
+                                               "Values(@pass, @email);", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@pass", password));
+                command.Parameters.Add(new SQLiteParameter("@email", password));
+                command.ExecuteNonQuery();
+            }
+
+            using (command = new SQLiteCommand("select id from Account where Account.email = @email;", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@email", email));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    if (r.Read())
+                    {
+                        idAccount = r.GetInt32(0);
+                    }
+                    
+                }
+            }
+
+            using (command = new SQLiteCommand("insert into User(Name,id_account", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@Name", name));
+                command.Parameters.Add(new SQLiteParameter("@id_account", idAccount));
+                command.ExecuteNonQuery();
+            }
+
+        }
+        /*------------Grams---------------*/
+
         private void CreateNew()
         {
             SQLiteConnection.CreateFile(pathSQL);
@@ -782,9 +819,17 @@ namespace TextGUIModule
                                   + "id_Code	INTEGER,"
                                   + " FOREIGN KEY(id_Gram) REFERENCES Gram(id)"
                                   + " ); ";
+            string createAccount = "CREATE TABLE `Account` ("
+                                  + "`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+                                  + "`password`	TEXT NOT NULL,"
+                                  +" `email`	TEXT NOT NULL UNIQUE,"
+                                  + " `image`	BLOB"
+                                  + " );";
             string createUser = "CREATE TABLE User ("
                                 + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                                 + "Name	TEXT NOT NULL"
+                                +"`id_account`	INTEGER,"
+                                +"FOREIGN KEY(`id_account`) REFERENCES `Account`(`id`)"
                                 + "); ";
             string createSubmite = "CREATE TABLE Submit ("
                                    + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
@@ -830,6 +875,7 @@ namespace TextGUIModule
             InitTable(createCode);
             InitTable(createGram);
             InitTable(createKGrams);
+            InitTable(createAccount);
             InitTable(createUser);
             InitTable(createSubmite);
             InitTable(createHistory);

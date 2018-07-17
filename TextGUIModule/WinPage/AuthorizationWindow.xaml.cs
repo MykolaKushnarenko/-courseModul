@@ -31,5 +31,10 @@ namespace CoDEmpare.WinPage
             visibleMainWindow();
             this.Close();
         }
+
+        private void SinglInButtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RegistrationWindow().ShowDialog();
+        }
     }
 }

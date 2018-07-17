@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CoDEmpare.WinPage"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Registration" Height="450" Width="600" ResizeMode="NoResize" WindowStyle="None">
+        Title="Registration" Height="450" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="TextBlockText">
             <Setter Property="FontSize" Value="13"/>
@@ -38,7 +38,7 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Singl UP" Margin="20 40" Style="{StaticResource TextBlockText}" FontSize="18"/>
                     <TextBlock Text="User name:" Style="{StaticResource TextBlockText}"/>
-                    <TextBox materialDesign:HintAssist.Hint="Name" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="5,10"/>
+                    <TextBox materialDesign:HintAssist.Hint="Name" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="5,10" />
                     <TextBlock Text="Password" Style="{StaticResource TextBlockText}"/>
                     <PasswordBox materialDesign:HintAssist.Hint="PASSWORD" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="5,10"/>
                     <TextBlock Text="Pre-Password" Style="{StaticResource TextBlockText}"/>
