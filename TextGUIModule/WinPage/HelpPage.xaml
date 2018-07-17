@@ -24,7 +24,7 @@
     </UserControl.Resources>
     <Grid>
         <materialDesign:TransitioningContent  x:Name="TransitioningContent" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight , Duration=0:0:0:1}">
-            <StackPanel HorizontalAlignment="Center"  Width="810" Margin="10,90,0,-0.4">
+            <StackPanel HorizontalAlignment="Right" Width="720" VerticalAlignment="Top" Margin="10,90,0,0">
                 <TreeView>
                     <TreeViewItem Header="Description">
                         <TreeViewItem Header="Info">
@@ -38,28 +38,28 @@
                             </StackPanel>
                         </TreeViewItem>
                         <TreeViewItem Header="Comunity">
-                            <StackPanel>
+                            
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="CodeGreaterThan"/>
                                     <TextBlock Text="Teacher"></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="CodeGreaterThan"/>
-                                    <TextBlock Text="Laboratory Assistant"></TextBlock>
+                                    <TextBlock Text="Laboratory Assistant"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="CodeGreaterThan"/>
-                                    <TextBlock Text="Students"></TextBlock>
+                                    <TextBlock Text="Students"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="CodeGreaterThan"/>
-                                    <TextBlock Text="School boy"></TextBlock>
+                                    <TextBlock Text="School boy" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="CodeGreaterThan"/>
-                                    <TextBlock Text="People"></TextBlock>
+                                    <TextBlock Text="People" />
                                 </StackPanel>
-                            </StackPanel>
+                            
                         </TreeViewItem>
                         <TreeViewItem Header="Authors">
                             <StackPanel Orientation="Horizontal">

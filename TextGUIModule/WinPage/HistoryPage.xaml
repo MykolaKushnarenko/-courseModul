@@ -24,11 +24,9 @@
     </UserControl.Resources>
     <Grid>
         <materialDesign:TransitioningContent  x:Name="TransitioningContent" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft , Duration=0:0:0:1}">
-            <StackPanel HorizontalAlignment="Center"  Width="810" Margin="10,90,0,-0.4">
+            <StackPanel HorizontalAlignment="Right"  Margin="10,90,0,0">
                 <Label Content="История" Style="{StaticResource TextLabel}" Margin="0 0 0 30"/>
-                <ListView x:Name="FileListCompil" Margin="4" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="800" FontFamily="Impact" >
-
-                </ListView>
+                <ListView x:Name="FileListCompil" Margin="4" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="800" FontFamily="Impact"/>
             </StackPanel>
         </materialDesign:TransitioningContent>
     </Grid>

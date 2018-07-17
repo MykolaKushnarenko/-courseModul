@@ -23,7 +23,7 @@
     </UserControl.Resources>
     <Grid>
         <materialDesign:TransitioningContent  x:Name="TransitioningContent" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft , Duration=0:0:0:1}" Margin="0,0,0,-15.6">
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="45,20,45,10.2">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="45,20,45,10.2">
                 <StackPanel Orientation="Vertical" Margin="20" HorizontalAlignment="Left">
                     <Label Content="Имя фамилмя" Style="{StaticResource TextLabel}" Padding="10"/>
                     <TextBox x:Name="NameAuthor" MaxHeight="100" Width ="185" TextWrapping="Wrap" Height="40" />
@@ -50,7 +50,7 @@
                 </StackPanel>
                 <StackPanel Margin="0 20 0 0">
                     <Label Content="Выбор компилятора" Style="{StaticResource TextLabel}" Margin="0 0 0 30 "/>
-                    <ListView x:Name="CompilName" Width="350" FontSize="14"/>
+                    <ListView x:Name="CompilName" Width="300" FontSize="14"/>
                 </StackPanel>
             </StackPanel>
         </materialDesign:TransitioningContent>
