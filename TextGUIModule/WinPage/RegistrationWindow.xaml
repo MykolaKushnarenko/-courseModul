@@ -1,0 +1,58 @@
+﻿<Window x:Class="CoDEmpare.WinPage.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoDEmpare.WinPage"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Registration" Height="450" Width="600" ResizeMode="NoResize" WindowStyle="None">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="TextBlockText">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Impact"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="BlueViolet"/>
+            <Setter Property="Margin" Value="10 0"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Top" Height="450" Width="300" HorizontalAlignment="Left">
+                <StackPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF801CE8"/>
+                        <GradientStop Color="#FF6D268A" Offset="0.8"/>
+                        <GradientStop Color="#FF67288B" Offset="0.8"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 100">
+                    <materialDesign:PackIcon Kind="Account" Height="100" Width="100" Foreground="WhiteSmoke" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Registration" Foreground="WhiteSmoke" TextAlignment="Center" FontSize="20" FontFamily="Arial Black"/>
+                    <TextBlock Text="Window" Foreground="WhiteSmoke" TextAlignment="Center" FontSize="18" FontFamily="Arial Black"/>
+                </StackPanel>
+                
+
+            </StackPanel>
+            <StackPanel Background="WhiteSmoke" HorizontalAlignment="Right" Width="300">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Singl UP" Margin="20 40" Style="{StaticResource TextBlockText}" FontSize="18"/>
+                    <TextBlock Text="User name:" Style="{StaticResource TextBlockText}"/>
+                    <TextBox materialDesign:HintAssist.Hint="Name" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="5,10"/>
+                    <TextBlock Text="Password" Style="{StaticResource TextBlockText}"/>
+                    <PasswordBox materialDesign:HintAssist.Hint="PASSWORD" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="5,10"/>
+                    <TextBlock Text="Pre-Password" Style="{StaticResource TextBlockText}"/>
+                    <PasswordBox materialDesign:HintAssist.Hint="PASSWORD" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="5,10"/>
+                    <TextBlock Text="Email" Style="{StaticResource TextBlockText}"/>
+                    <PasswordBox materialDesign:HintAssist.Hint="EMAIL" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="5,10"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button BorderBrush="{x:Null}" Foreground="WhiteSmoke" Background="#FF6E1E96" Content="SINGL UP" Margin="50 0"/>
+                        <Button BorderBrush="{x:Null}" Foreground="WhiteSmoke" Background="#FF6E1E96" Content="Exit"/>
+                    </StackPanel>
+                    
+                </StackPanel>
+               
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
