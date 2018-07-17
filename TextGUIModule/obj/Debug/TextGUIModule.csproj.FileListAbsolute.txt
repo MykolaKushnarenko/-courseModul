@@ -299,3 +299,5 @@ C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\Hel
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\HelpPage.baml
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\AuthorizationWindow.g.cs
 C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\AuthorizationWindow.baml
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\RegistrationWindow.g.cs
+C:\Users\nikok\Desktop\Новая папка\TextGUIModule\obj\Debug\WinPage\RegistrationWindow.baml

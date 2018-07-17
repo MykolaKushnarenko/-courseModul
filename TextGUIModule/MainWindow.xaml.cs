@@ -27,9 +27,15 @@ namespace TextGUIModule
             InitializeComponent();
             _db = new DataBaseLite();
             GridContentAction.Children.Add(new AddingSubmit(_db, Result, false));
-            
+            Visibility = Visibility.Hidden;
+            AutificationWindow();
         }
 
+        private void AutificationWindow()
+        {
+            AuthorizationWindow login = new AuthorizationWindow(VisibilityAfterUutification);
+            login.ShowDialog();
+        }
         private void LoOutBut_OnClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -114,6 +120,11 @@ namespace TextGUIModule
         {
             GridContentAction.Children.Clear();
             GridContentAction.Children.Add(new HelpPage());
+        }
+
+        private void VisibilityAfterUutification()
+        {
+            this.Visibility = Visibility.Visible;
         }
     }
 }

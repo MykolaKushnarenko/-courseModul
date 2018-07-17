@@ -19,9 +19,17 @@ namespace CoDEmpare.WinPage
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
-        public AuthorizationWindow()
+        private Action visibleMainWindow;
+        public AuthorizationWindow(Action method)
         {
             InitializeComponent();
+            visibleMainWindow += method;
+        }
+
+        private void SkipButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            visibleMainWindow();
+            this.Close();
         }
     }
 }

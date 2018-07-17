@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:CoDEmpare.WinPage"
         mc:Ignorable="d"
-        Title="Login" Height="500" Width="320" ResizeMode="NoResize" WindowStyle="None">
+        Title="Login" Height="500" Width="320" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid>
         <Rectangle Height="280" VerticalAlignment="Top">
             <Rectangle.Fill>
@@ -29,8 +29,9 @@
                 <TextBox materialDesign:HintAssist.Hint="EMAIL" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="0,10"/>
                 <PasswordBox materialDesign:HintAssist.Hint="SENHA" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="0,10"/>
             </StackPanel>
-            <Button VerticalAlignment="Bottom" Width="150" Margin="0 20 10 -15" Content="LOGIN" Background="#FF9722D1" BorderBrush="{x:Null}" />
-                
-        </Grid>
+            <Button x:Name="LoginButton" VerticalAlignment="Bottom" Width="150" Margin="0 20 0 -15" Content="LOGIN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" />
+            </Grid>
+        <Button x:Name="SinglInButtn" VerticalAlignment="Bottom"  Width="100" Height="25" Margin="0,0,0,50" Content="SINGL IN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" />
+        <Button x:Name="SkipButton" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="30" Margin="5" Content="Trial" Foreground="DarkGray" Background="{x:Null}" BorderBrush="{x:Null}" Click="SkipButton_OnClick"/>
     </Grid>
 </Window>
