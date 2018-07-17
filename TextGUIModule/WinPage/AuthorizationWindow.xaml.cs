@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TextGUIModule;
 
 namespace CoDEmpare.WinPage
 {
@@ -20,8 +21,10 @@ namespace CoDEmpare.WinPage
     public partial class AuthorizationWindow : Window
     {
         private Action visibleMainWindow;
-        public AuthorizationWindow(Action method)
+        private DataBaseLite _dataBase;
+        public AuthorizationWindow(Action method, DataBaseLite data)
         {
+            _dataBase = data;
             InitializeComponent();
             visibleMainWindow += method;
         }
@@ -34,7 +37,7 @@ namespace CoDEmpare.WinPage
 
         private void SinglInButtn_OnClick(object sender, RoutedEventArgs e)
         {
-            new RegistrationWindow().ShowDialog();
+            new RegistrationWindow(_dataBase).ShowDialog();
         }
     }
 }

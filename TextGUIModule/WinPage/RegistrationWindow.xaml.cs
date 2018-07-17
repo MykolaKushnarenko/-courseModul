@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TextGUIModule;
 
 namespace CoDEmpare.WinPage
 {
@@ -19,9 +20,25 @@ namespace CoDEmpare.WinPage
     /// </summary>
     public partial class RegistrationWindow : Window
     {
-        public RegistrationWindow()
+        private DataBaseLite _dataBase;
+        public RegistrationWindow(DataBaseLite data)
         {
+            _dataBase = data;
             InitializeComponent();
+        }
+
+        private void SinglUp_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Password.Password == PasswordSecond.Password)
+            {
+                _dataBase.RegistsAccount(Name.Text, Email.Text, Password.Password);
+                MessageBox.Show("OK!", "Result");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
         }
     }
 }

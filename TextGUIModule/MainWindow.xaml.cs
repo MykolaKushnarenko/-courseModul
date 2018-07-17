@@ -33,7 +33,7 @@ namespace TextGUIModule
 
         private void AutificationWindow()
         {
-            AuthorizationWindow login = new AuthorizationWindow(VisibilityAfterUutification);
+            AuthorizationWindow login = new AuthorizationWindow(VisibilityAfterUutification,_db);
             login.ShowDialog();
         }
         private void LoOutBut_OnClick(object sender, RoutedEventArgs e)

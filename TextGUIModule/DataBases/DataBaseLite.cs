@@ -738,7 +738,7 @@ namespace TextGUIModule
                                                "Values(@pass, @email);", conn))
             {
                 command.Parameters.Add(new SQLiteParameter("@pass", password));
-                command.Parameters.Add(new SQLiteParameter("@email", password));
+                command.Parameters.Add(new SQLiteParameter("@email", email));
                 command.ExecuteNonQuery();
             }
 
@@ -755,13 +755,14 @@ namespace TextGUIModule
                 }
             }
 
-            using (command = new SQLiteCommand("insert into User(Name,id_account", conn))
+            using (command = new SQLiteCommand("insert into User(Name,id_account)" +
+                                               "Values(@Name,@id_account);", conn))
             {
                 command.Parameters.Add(new SQLiteParameter("@Name", name));
                 command.Parameters.Add(new SQLiteParameter("@id_account", idAccount));
                 command.ExecuteNonQuery();
             }
-
+            conn.Close();
         }
         /*------------Grams---------------*/
 
@@ -820,16 +821,16 @@ namespace TextGUIModule
                                   + " FOREIGN KEY(id_Gram) REFERENCES Gram(id)"
                                   + " ); ";
             string createAccount = "CREATE TABLE `Account` ("
-                                  + "`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-                                  + "`password`	TEXT NOT NULL,"
-                                  +" `email`	TEXT NOT NULL UNIQUE,"
-                                  + " `image`	BLOB"
+                                  + "id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+                                  + "password	TEXT NOT NULL,"
+                                  +" email	TEXT NOT NULL UNIQUE,"
+                                  + " image	BLOB"
                                   + " );";
             string createUser = "CREATE TABLE User ("
                                 + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-                                + "Name	TEXT NOT NULL"
-                                +"`id_account`	INTEGER,"
-                                +"FOREIGN KEY(`id_account`) REFERENCES `Account`(`id`)"
+                                + "Name	TEXT NOT NULL,"
+                                +"id_account	INTEGER,"
+                                +"FOREIGN KEY(id_account) REFERENCES Account(id)"
                                 + "); ";
             string createSubmite = "CREATE TABLE Submit ("
                                    + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
