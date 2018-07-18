@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -737,7 +738,7 @@ namespace TextGUIModule
             using (command = new SQLiteCommand("Insert into Account(password,email)" +
                                                "Values(@pass, @email);", conn))
             {
-                command.Parameters.Add(new SQLiteParameter("@pass", password));
+                command.Parameters.Add(new SQLiteParameter("@pass", CryptographyPassword(password)));
                 command.Parameters.Add(new SQLiteParameter("@email", email));
                 command.ExecuteNonQuery();
             }
@@ -784,7 +785,7 @@ namespace TextGUIModule
                 }
             }
             conn.Close();
-            if (password == pass)
+            if (CryptographyPassword(password) == pass)
             {
                 return true;
             }
@@ -792,6 +793,15 @@ namespace TextGUIModule
                 return false;
         }
 
+        private string CryptographyPassword(string password)
+        {
+            byte[] data = Encoding.ASCII.GetBytes(password);
+            byte[] passwordInBype;
+            SHA512 shaM = new SHA512Managed();
+            passwordInBype = shaM.ComputeHash(data);
+            string hashPassword = Encoding.ASCII.GetString(passwordInBype);
+            return hashPassword;
+        }
         private void CreateNew()
         {
             SQLiteConnection.CreateFile(pathSQL);

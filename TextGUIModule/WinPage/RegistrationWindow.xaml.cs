@@ -29,9 +29,11 @@ namespace CoDEmpare.WinPage
 
         private void SinglUp_OnClick(object sender, RoutedEventArgs e)
         {
+            
             if (Password.Password == PasswordSecond.Password && Password.Password.Replace(" ", "") != ""
                 && Name.Text.Replace(" ", "") != "" && Email.Text.Replace(" ", "") != "")
             {
+                
                 _dataBase.RegistsAccount(Name.Text, Email.Text, Password.Password);
                 MessageBox.Show("OK!", "Result");
                 this.Close();
