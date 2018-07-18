@@ -51,7 +51,7 @@ namespace CoDEmpare.WinPage
             }
             else
             {
-                MessageBox.Show("Error", "Result");
+                Error.Visibility = Visibility.Visible;
             }
         }
     }

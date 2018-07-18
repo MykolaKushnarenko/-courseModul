@@ -29,7 +29,8 @@ namespace CoDEmpare.WinPage
 
         private void SinglUp_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Password.Password == PasswordSecond.Password)
+            if (Password.Password == PasswordSecond.Password && Password.Password.Replace(" ", "") != ""
+                && Name.Text.Replace(" ", "") != "" && Email.Text.Replace(" ", "") != "")
             {
                 _dataBase.RegistsAccount(Name.Text, Email.Text, Password.Password);
                 MessageBox.Show("OK!", "Result");
@@ -37,8 +38,13 @@ namespace CoDEmpare.WinPage
             }
             else
             {
-                MessageBox.Show("Error");
+                Error.Visibility = Visibility.Visible;
             }
+        }
+
+        private void Exit_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

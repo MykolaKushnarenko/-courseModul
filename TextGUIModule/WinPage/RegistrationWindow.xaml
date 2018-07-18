@@ -36,18 +36,19 @@
             </StackPanel>
             <StackPanel Background="WhiteSmoke" HorizontalAlignment="Right" Width="300">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Singl UP" Margin="20 40" Style="{StaticResource TextBlockText}" FontSize="18"/>
+                    <TextBlock Text="Singl UP" Margin="20 20" Style="{StaticResource TextBlockText}" FontSize="18"/>
                     <TextBlock Text="User name:" Style="{StaticResource TextBlockText}"/>
-                    <TextBox x:Name="Name" materialDesign:HintAssist.Hint="Name" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="5,10" />
+                    <TextBox x:Name="Name" materialDesign:HintAssist.Hint="Name" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="20,10" />
                     <TextBlock Text="Password" Style="{StaticResource TextBlockText}"/>
-                    <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="PASSWORD" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="5,10"/>
+                    <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="PASSWORD" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="20,10"/>
                     <TextBlock Text="Pre-Password" Style="{StaticResource TextBlockText}"/>
-                    <PasswordBox x:Name="PasswordSecond" materialDesign:HintAssist.Hint="PASSWORD" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="5,10"/>
+                    <PasswordBox x:Name="PasswordSecond" materialDesign:HintAssist.Hint="PASSWORD" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="20,10"/>
                     <TextBlock Text="Email" Style="{StaticResource TextBlockText}"/>
-                    <TextBox x:Name="Email" materialDesign:HintAssist.Hint="EMAIL" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="5,10"/>
+                    <TextBox x:Name="Email" materialDesign:HintAssist.Hint="EMAIL" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="20,10"/>
+                    <TextBlock x:Name="Error" Text="Field not enter" Foreground="Red" HorizontalAlignment="Center" Margin="0 5  0 20" Visibility="Hidden"/>
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="SinglUp" BorderBrush="{x:Null}" Foreground="WhiteSmoke" Background="#FF6E1E96" Content="SINGL UP" Margin="50 0" Click="SinglUp_OnClick"/>
-                        <Button BorderBrush="{x:Null}" Foreground="WhiteSmoke" Background="#FF6E1E96" Content="Exit"/>
+                        <Button x:Name="Exit" BorderBrush="{x:Null}" Foreground="WhiteSmoke" Background="#FF6E1E96" Content="Exit" Click="Exit_OnClick"/>
                     </StackPanel>
                     
                 </StackPanel>

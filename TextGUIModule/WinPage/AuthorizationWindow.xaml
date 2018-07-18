@@ -27,7 +27,8 @@
             <TextBlock Text="LOGIN" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Foreground="Gray" FontSize="18"/>
             <StackPanel VerticalAlignment="Center" Margin="10">
                 <TextBox x:Name="Email" materialDesign:HintAssist.Hint="EMAIL" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="0,10"/>
-                <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="SENHA" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="0,10"/>
+                <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="SENHA" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" />
+                <TextBlock x:Name="Error" Text="Email or password not current" Margin="0,10" HorizontalAlignment="Center" Foreground="Red" Visibility="Collapsed"/>
             </StackPanel>
             <Button x:Name="LoginButton" VerticalAlignment="Bottom" Width="150" Margin="0 20 0 -15" Content="LOGIN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" Click="LoginButton_OnClick"/>
             </Grid>

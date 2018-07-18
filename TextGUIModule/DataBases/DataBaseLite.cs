@@ -783,7 +783,7 @@ namespace TextGUIModule
                     }
                 }
             }
-
+            conn.Close();
             if (password == pass)
             {
                 return true;
