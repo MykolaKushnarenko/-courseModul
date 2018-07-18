@@ -39,5 +39,20 @@ namespace CoDEmpare.WinPage
         {
             new RegistrationWindow(_dataBase).ShowDialog();
         }
+
+        private void LoginButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            bool isComplite;
+            isComplite =_dataBase.Autification(Email.Text, Password.Password);
+            if (isComplite == true)
+            {
+                visibleMainWindow();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error", "Result");
+            }
+        }
     }
 }

@@ -764,7 +764,33 @@ namespace TextGUIModule
             }
             conn.Close();
         }
-        /*------------Grams---------------*/
+        /*------------Account---------------*/
+        /*------------Autification---------------*/
+
+        public bool Autification(string email, string password)
+        {
+            string pass = "";
+            conn.Open();
+            using (command =
+                new SQLiteCommand("select Account.password from Account where Account.email = @email", conn))
+            {
+                command.Parameters.Add(new SQLiteParameter("@email", email));
+                using (IDataReader r = command.ExecuteReader())
+                {
+                    if (r.Read())
+                    {
+                        pass = r.GetString(0);
+                    }
+                }
+            }
+
+            if (password == pass)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
 
         private void CreateNew()
         {

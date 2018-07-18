@@ -26,10 +26,10 @@
         <Grid Width="280" Height="240" VerticalAlignment="Bottom" Margin="0,100">
             <TextBlock Text="LOGIN" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Foreground="Gray" FontSize="18"/>
             <StackPanel VerticalAlignment="Center" Margin="10">
-                <TextBox materialDesign:HintAssist.Hint="EMAIL" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="0,10"/>
-                <PasswordBox materialDesign:HintAssist.Hint="SENHA" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="0,10"/>
+                <TextBox x:Name="Email" materialDesign:HintAssist.Hint="EMAIL" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="0,10"/>
+                <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="SENHA" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" Margin="0,10"/>
             </StackPanel>
-            <Button x:Name="LoginButton" VerticalAlignment="Bottom" Width="150" Margin="0 20 0 -15" Content="LOGIN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" />
+            <Button x:Name="LoginButton" VerticalAlignment="Bottom" Width="150" Margin="0 20 0 -15" Content="LOGIN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" Click="LoginButton_OnClick"/>
             </Grid>
         <Button x:Name="SinglInButtn" VerticalAlignment="Bottom"  Width="100" Height="25" Margin="0,0,0,50" Content="SINGL IN" Foreground="WhiteSmoke" Background="#FF9722D1" BorderBrush="{x:Null}" Click="SinglInButtn_OnClick" />
         <Button x:Name="SkipButton" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="30" Margin="5" Content="Trial" Foreground="DarkGray" Background="{x:Null}" BorderBrush="{x:Null}" Click="SkipButton_OnClick"/>
